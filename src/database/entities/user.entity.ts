@@ -46,14 +46,12 @@ export default class User extends BaseEntity {
     firstName: string,
     lastName: string,
     phone?: string,
-    image?: string,
   ) {
     const user = new User();
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
     user.phone = phone;
-    user.image = image;
     if (password) {
       user.password = await hashUserPassword(password);
     }

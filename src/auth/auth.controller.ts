@@ -38,6 +38,10 @@ class CreateUserDTO {
   @IsNotEmpty()
   @IsStrongPassword(PASSWORD_OPTIONS)
   password: string;
+
+  @IsNotEmpty()
+  @IsString()
+  phone: string;
 }
 
 @Controller('auth')
@@ -73,7 +77,7 @@ export class AuthController {
    */
   @Post('register')
   async register(
-    @Body() { email, password, firstName, lastName }: CreateUserDTO,
+    @Body() { email, password, firstName, lastName, phone }: CreateUserDTO,
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = await this.authService.register(
@@ -81,6 +85,7 @@ export class AuthController {
       password,
       firstName,
       lastName,
+      phone
     );
     res.cookie('token', token, {
       // same expiration as token itself
