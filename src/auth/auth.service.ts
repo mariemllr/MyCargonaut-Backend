@@ -37,8 +37,9 @@ export class AuthService {
     password: string,
     firstName: string,
     lastName: string,
+    phone: string
   ) {
-    const user = await User.of(email, password, firstName, lastName);
+    const user = await User.of(email, password, firstName, lastName, phone);
     await user.save();
     return this.login(email, password);
   }
