@@ -85,7 +85,7 @@ export class AuthController {
       password,
       firstName,
       lastName,
-      phone
+      phone,
     );
     res.cookie('token', token, {
       // same expiration as token itself
