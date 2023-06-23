@@ -5,8 +5,9 @@ import {
   TypeORMDatabaseModule,
 } from './database/database.module';
 import { UserModule } from './user/user.module';
+import { OfferModule } from './offer/offer.module';
 @Module({
-  imports: [AuthModule, DatabaseModule, UserModule, TypeORMDatabaseModule],
+  imports: [AuthModule, DatabaseModule, UserModule, TypeORMDatabaseModule, OfferModule],
   exports: [AuthModule, DatabaseModule, UserModule],
 })
 export class AppModule {}
