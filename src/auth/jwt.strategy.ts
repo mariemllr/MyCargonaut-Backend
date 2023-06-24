@@ -3,7 +3,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { jwtConstants } from './constants';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request as RequestType } from 'express';
-import { getTokenFromCookie } from 'src/misc/helper';
+import { getTokenFromCookie } from '../misc/helper';
 
 /**
  * Used for protecting endpoints by requiring a valid JWT be present on the request

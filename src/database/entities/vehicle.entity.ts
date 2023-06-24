@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { VehicleType } from 'src/misc/constants';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { VehicleType } from '../../misc/constants';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export default class Vehicle extends BaseEntity {

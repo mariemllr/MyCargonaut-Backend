@@ -3,6 +3,9 @@ import { TypeOrmModule as DefaultTypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import User from './entities/user.entity';
 import { UserService } from './services/user.service';
+import { VehicleModule } from '../vehicle/vehicle.module';
+import Vehicle from './entities/vehicle.entity';
+import { VehicleService } from './services/vehicle.service';
 
 export const TypeORMDatabaseModule = DefaultTypeOrmModule.forRoot({
   type: 'postgres',

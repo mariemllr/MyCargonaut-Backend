@@ -6,6 +6,8 @@ import {
   TypeORMDatabaseModule,
 } from './database/database.module';
 import { UserModule } from './user/user.module';
+import { TestingService } from './testing/testing.service';
+import { VehicleService } from './database/services/vehicle.service';
 @Module({
   imports: [
     VehicleModule,
@@ -15,5 +17,6 @@ import { UserModule } from './user/user.module';
     TypeORMDatabaseModule,
   ],
   exports: [AuthModule, DatabaseModule, UserModule],
+  providers: [TestingService, VehicleService],
 })
 export class AppModule {}

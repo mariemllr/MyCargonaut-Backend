@@ -19,12 +19,12 @@ import {
   IsString,
 } from 'class-validator';
 import e from 'express';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import User from 'src/database/entities/user.entity';
-import Vehicle from 'src/database/entities/vehicle.entity';
-import { UserService } from 'src/database/services/user.service';
-import { VehicleService } from 'src/database/services/vehicle.service';
-import { VehicleType } from 'src/misc/constants';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import User from '../database/entities/user.entity';
+import Vehicle from '../database/entities/vehicle.entity';
+import { UserService } from '../database/services/user.service';
+import { VehicleService } from '../database/services/vehicle.service';
+import { VehicleType } from '../misc/constants';
 class UpdateVehicleDto {
   @IsOptional()
   @IsString()
@@ -151,7 +151,7 @@ export class VehicleController {
   async vehicleExists(
     @Param('email') email: string,
     @Param('name') name: string,
-  ) {
+  ): Promise<boolean> {
     const vehicle = await this.vehicleService.findByEmailAndName(email, name);
     const exists = vehicle !== undefined && vehicle !== null;
     return exists;

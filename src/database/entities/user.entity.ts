@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { hashUserPassword } from 'src/misc/helper';
+import { hashUserPassword } from '../../misc/helper';
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

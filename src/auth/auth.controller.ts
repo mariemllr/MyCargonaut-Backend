@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { IsNotEmpty, IsStrongPassword, IsString } from 'class-validator';
-import { PASSWORD_OPTIONS } from 'src/misc/constants';
+import { PASSWORD_OPTIONS } from '../misc/constants';
 
 class LoginDTO {
   @IsNotEmpty()

@@ -1,10 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { hashUserPassword } from 'src/misc/helper';
-import { FindOneOptions } from 'typeorm';
-import User from '../entities/user.entity';
 import { UserService } from './user.service';
 import Vehicle from '../entities/vehicle.entity';
-import { VehicleType } from 'src/misc/constants';
+import { VehicleType } from '../../misc/constants';
 
 @Injectable()
 export class VehicleService {
