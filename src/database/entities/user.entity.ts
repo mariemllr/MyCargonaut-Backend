@@ -19,6 +19,9 @@ export default class User extends BaseEntity {
   @Column({ nullable: true })
   phone?: string;
 
+  @Column({ nullable: true })
+  birthday?: Date;
+
   @Column({ default: null })
   image?: string;
 
@@ -46,12 +49,14 @@ export default class User extends BaseEntity {
     firstName: string,
     lastName: string,
     phone?: string,
+    birthday?: Date,
   ) {
     const user = new User();
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
     user.phone = phone;
+    user.birthday = birthday;
     if (password) {
       user.password = await hashUserPassword(password);
     }

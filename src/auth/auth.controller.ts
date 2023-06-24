@@ -10,8 +10,15 @@ import {
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { IsNotEmpty, IsStrongPassword, IsString } from 'class-validator';
-import { PASSWORD_OPTIONS } from '../misc/constants';
+import {
+  IsNotEmpty,
+  IsStrongPassword,
+  IsString,
+  IsMobilePhone,
+  IsDate,
+} from 'class-validator';
+import { PASSWORD_OPTIONS } from 'src/misc/constants';
+import { Type } from 'class-transformer';
 
 class LoginDTO {
   @IsNotEmpty()
@@ -28,6 +35,10 @@ class CreateUserDTO {
   email: string;
 
   @IsNotEmpty()
+  @IsStrongPassword(PASSWORD_OPTIONS)
+  password: string;
+
+  @IsNotEmpty()
   @IsString()
   firstName: string;
 
@@ -35,13 +46,13 @@ class CreateUserDTO {
   @IsString()
   lastName: string;
 
-  @IsNotEmpty()
-  @IsStrongPassword(PASSWORD_OPTIONS)
-  password: string;
+  @IsMobilePhone('de-DE')
+  phone: string;
 
   @IsNotEmpty()
-  @IsString()
-  phone: string;
+  @IsDate()
+  @Type(() => Date)
+  birthday: Date;
 }
 
 @Controller('auth')
@@ -77,7 +88,8 @@ export class AuthController {
    */
   @Post('register')
   async register(
-    @Body() { email, password, firstName, lastName, phone }: CreateUserDTO,
+    @Body()
+    { email, password, firstName, lastName, phone, birthday }: CreateUserDTO,
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = await this.authService.register(
@@ -86,6 +98,7 @@ export class AuthController {
       firstName,
       lastName,
       phone,
+      birthday,
     );
     res.cookie('token', token, {
       // same expiration as token itself
