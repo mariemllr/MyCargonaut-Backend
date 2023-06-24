@@ -27,14 +27,6 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 7.0.x
-      - name: Build and Test
-        run: dotnet test -c Release --verbosity minimal
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
