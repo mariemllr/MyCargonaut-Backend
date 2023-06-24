@@ -1,0 +1,56 @@
+name: Deploy
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  push:
+    branches: [ master]
+  pull_request:
+    branches: [master]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: cargomaus69
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    env:
+      # replace with your project/env name
+      ORG_PROJECT: cargonaut-backend
+      DEPLOY_ENV: dev
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Lint the codebase
+        run: yarn lint
+
+      - name: Test our code
+        run: yarn test
+
+      - name: Build
+        run: yarn build
+
+      - name: Login
+        run: npx warp login --api-key=${{ secrets.SD_API_KEY }}
+
+      - name: Deploy
+        run: npx warp deploy --project ${ORG_PROJECT} --env ${DEPLOY_ENV}
