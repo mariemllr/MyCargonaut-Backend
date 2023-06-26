@@ -31,6 +31,12 @@ export default class User extends BaseEntity {
   @Column({ default: false })
   isLoggedIn: boolean;
 
+  @Column({ default: false })
+  smoker?: boolean;
+
+  @Column({ nullable: true })
+  note?: string;
+
   clearSensitiveInformation() {
     const user = { ...this };
     user.password = undefined;
