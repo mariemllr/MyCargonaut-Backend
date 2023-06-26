@@ -10,7 +10,6 @@ import {
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { getEmailFromCookie } from 'src/misc/helper';
 import { UserService } from 'src/database/services/user.service';
-import { AuthService } from 'src/auth/auth.service';
 import { IsString, IsOptional, IsDate, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Response } from 'express';
@@ -44,10 +43,7 @@ export class UpdateProfileDto {
 
 @Controller('profile')
 export class ProfileController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly userService: UserService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @UseGuards(JwtAuthGuard)
   @Get('me')
