@@ -55,4 +55,4 @@ jobs:
         run: npx warp deploy --project ${ORG_PROJECT} --env ${DEPLOY_ENV}
         
       - name: Info
-        run: npx warp env info
+        run: npx warp env info --project ${ORG_PROJECT} --env ${DEPLOY_ENV}
