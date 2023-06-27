@@ -37,7 +37,7 @@ jobs:
             username: ${{secrets.SSH_USERNAME}}
 
             script:
-                cd /var/www/mycargonaut/MyCargonaut-Backend;
-                git pull origin master;
-                pm2 start npm --name "backend" -- run start;
-                pm2 save;
+                cd /var/www/mycargonaut/MyCargonaut-Backend
+                git pull origin master
+                pm2 start npm --name "backend" -- run start
+                pm2 save
