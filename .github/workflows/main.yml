@@ -11,7 +11,9 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:15
@@ -25,9 +27,6 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
     env:
       # replace with your project/env name
       ORG_PROJECT: cargonaut-backend
@@ -54,3 +53,6 @@ jobs:
 
       - name: Deploy
         run: npx warp deploy --project ${ORG_PROJECT} --env ${DEPLOY_ENV}
+        
+      - name: Info
+        run: npx warp env info --project ${ORG_PROJECT} --env ${DEPLOY_ENV}
