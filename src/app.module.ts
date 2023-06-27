@@ -7,6 +7,7 @@ import {
 } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { VehicleService } from './database/services/vehicle.service';
+import { ProfileModule } from './profile/profile.module';
 @Module({
   imports: [
     VehicleModule,
@@ -14,6 +15,7 @@ import { VehicleService } from './database/services/vehicle.service';
     DatabaseModule,
     UserModule,
     TypeORMDatabaseModule,
+    ProfileModule,
   ],
   exports: [AuthModule, DatabaseModule, UserModule],
   providers: [VehicleService],

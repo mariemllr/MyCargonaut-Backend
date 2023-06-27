@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Headers,
-  HttpException,
   HttpStatus,
   Logger,
   Param,
@@ -18,11 +17,11 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
+  IsDate,
   IsNotEmpty,
   IsOptional,
   IsPhoneNumber,
   IsString,
-  IsStrongPassword,
 } from 'class-validator';
 import { diskStorage } from 'multer';
 import { AuthService } from '../auth/auth.service';
@@ -30,19 +29,15 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UserService } from '../database/services/user.service';
 import {
   MAX_USER_IMAGE_FILE_SIZE,
-  PASSWORD_OPTIONS,
   USER_IMAGE_LOCATION,
 } from '../misc/constants';
 import { getEmailFromCookie } from '../misc/helper';
 import { Response } from 'express';
 import { generate } from 'generate-passphrase';
 import User from '../database/entities/user.entity';
+import { Type } from 'class-transformer';
 
 class UpdateUserDTO {
-  @IsOptional()
-  @IsString()
-  email?: string;
-
   @IsOptional()
   @IsString()
   firstName?: string;
@@ -52,12 +47,13 @@ class UpdateUserDTO {
   lastName?: string;
 
   @IsOptional()
-  @IsStrongPassword(PASSWORD_OPTIONS)
-  password?: string;
-
-  @IsOptional()
   @IsPhoneNumber()
   phoneNumber?: string;
+
+  @IsOptional()
+  @IsDate()
+  @Type(() => Date)
+  birthday: Date;
 }
 
 class CreateUserDTO {
@@ -142,15 +138,6 @@ export class UserController {
     @Body() newValues: UpdateUserDTO,
   ) {
     const email = getEmailFromCookie(cookie);
-    // regenerate token if email changed
-    if (newValues.email && newValues.email !== email) {
-      const newToken = await this.authService.generateToken(newValues.email);
-      res.cookie('token', newToken, {
-        // same expiration as token itself
-        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-      });
-      this.logger.debug('generated new token as email changed');
-    }
     return this.userService.updateUser(email, newValues);
   }
 
