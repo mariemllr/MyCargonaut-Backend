@@ -1,34 +1,73 @@
-import { Status } from 'src/misc/constants';
+import {
+    IsOptional,
+    IsNumber,
+    IsCurrency,
+    IsString,
+    IsDate,
+    IsBoolean,
+    IsInt,
+    IsEmail
+  } from 'class-validator';
+import { Type } from 'class-transformer';
 export class UpdateOfferDto {
-    startlocation?: string;
+    @IsOptional()
+    @IsString()
+    startlocation: string;
 
-    endlocation?: string;
+    @IsOptional()
+    @IsString()
+    endlocation: string;
 
-    date?: Date;
+    @IsOptional()
+    @IsDate()
+    @Type(() => Date)
+    date: Date;
 
-    festpreis?: boolean;
+    @IsOptional()
+    @IsBoolean()
+    festpreis: boolean;
 
-    price_freight?: number;
+    @IsOptional()
+    @IsCurrency()
+    price_freight: number;
 
-    price_per_person?: number;
+    @IsOptional()
+    @IsCurrency()
+    price_per_person: number;
 
-    seats?: number;
+    @IsOptional()
+    @IsInt()
+    seats: number;
 
-    stops?: string;
+    @IsOptional()
+    @IsString()
+    stops: string;
 
-    weight?: number;
+    @IsOptional()
+    @IsNumber()
+    weight: number;
 
-    mass_x?: number;
+    @IsOptional()
+    @IsInt()
+    mass_x: number;
 
-    mass_y?: number;
+    @IsOptional()
+    @IsInt()
+    mass_y: number;
 
-    mass_z?: number;
+    @IsOptional()
+    @IsInt()
+    mass_z: number;
 
-    smoking?: boolean;
+    @IsOptional()
+    @IsBoolean()
+    smoking: boolean;
 
-    animals?: boolean;
+    @IsOptional()
+    @IsBoolean()
+    animals: boolean;
 
-    status?: Status;
-
-    notes?: string;
+    @IsOptional()
+    @IsString()
+    notes: string;
 }

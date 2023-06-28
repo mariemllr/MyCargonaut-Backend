@@ -1,31 +1,68 @@
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsCurrency,
+  IsString,
+  IsDate,
+  IsBoolean,
+  IsInt,
+  IsEmail
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
 export class CreateOfferDto {
+    @IsNotEmpty()
+    @IsEmail()
+    userEmail: string;
+
+    @IsNotEmpty()
+    @IsString()
     startlocation: string;
 
+    @IsNotEmpty()
+    @IsString()
     endlocation: string;
 
+    @IsNotEmpty()
+    @IsDate()
+    @Type(() => Date)
     date: Date;
 
+    @IsBoolean()
     festpreis: boolean;
 
+    @IsNotEmpty()
+    @IsCurrency()
     price_freight: number;
 
-    price_per_person?: number;
+    @IsCurrency()
+    price_per_person: number;
 
+    @IsNotEmpty()
+    @IsInt()
     seats: number;
 
-    stops?: string;
+    @IsString()
+    stops: string;
 
-    weight?: number;
+    @IsNumber()
+    weight: number;
 
-    mass_x?: number;
+    @IsInt()
+    mass_x: number;
 
-    mass_y?: number;
+    @IsInt()
+    mass_y: number;
 
-    mass_z?: number;
+    @IsInt()
+    mass_z: number;
 
-    smoking?: boolean;
+    @IsBoolean()
+    smoking: boolean;
 
-    animals?: boolean;
+    @IsBoolean()
+    animals: boolean;
 
-    notes?: string;
+    @IsString()
+    notes: string;
 }
