@@ -12,8 +12,8 @@ import { Type } from 'class-transformer';
 
 export class CreateOfferDto {
     @IsNotEmpty()
-    @IsEmail()
-    userEmail: string;
+    @IsNumber()
+    userId: number;
 
     @IsNotEmpty()
     @IsString()
