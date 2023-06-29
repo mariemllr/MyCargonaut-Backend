@@ -82,6 +82,7 @@ export class UserService {
   async findByEmail(
     email: string,
     options?: FindOneOptions<User>,
+    selectFields: (keyof User)[] = [],
   ): Promise<(User & { isOnline: boolean }) | undefined> {
     try {
       if (options) options.where = { email, ...options?.where };
@@ -90,7 +91,14 @@ export class UserService {
           where: { email },
         },
       );
-      const clearedUser: User = user.clearSensitiveInformation();
+      let clearedUser: User = user.clearSensitiveInformation();
+      if (selectFields.length > 0) {
+        clearedUser = selectFields.reduce(
+          (obj, key) => ({ ...obj, [key]: user[key] }),
+          {},
+        ) as User;
+      }
+
       return clearedUser as User & { isOnline: boolean };
     } catch (error) {
       return undefined;
@@ -111,13 +119,15 @@ export class UserService {
   async updateUser(
     email: string,
     newValue: {
-      name?: string;
+      firstName?: string;
+      lastName?: string;
       email?: string;
       password?: string;
-      isAdmin?: boolean;
-      isSeller?: boolean;
-      boothNumber?: number;
-      phoneNumber?: string;
+      phone?: string;
+      birthday?: Date;
+      note?: string;
+      smoker?: boolean;
+      image?: string;
     },
   ) {
     const user = await this.findOne(email);

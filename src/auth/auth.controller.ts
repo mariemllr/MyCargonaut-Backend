@@ -16,6 +16,7 @@ import {
   IsString,
   IsMobilePhone,
   IsDate,
+  IsOptional,
 } from 'class-validator';
 import { PASSWORD_OPTIONS } from 'src/misc/constants';
 import { Type } from 'class-transformer';
@@ -29,7 +30,7 @@ class LoginDTO {
   password: string;
 }
 
-class CreateUserDTO {
+class RegisterDTO {
   @IsNotEmpty()
   @IsString()
   email: string;
@@ -46,10 +47,11 @@ class CreateUserDTO {
   @IsString()
   lastName: string;
 
+  @IsOptional()
   @IsMobilePhone('de-DE')
   phone: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsDate()
   @Type(() => Date)
   birthday: Date;
@@ -89,7 +91,7 @@ export class AuthController {
   @Post('register')
   async register(
     @Body()
-    { email, password, firstName, lastName, phone, birthday }: CreateUserDTO,
+    { email, password, firstName, lastName, phone, birthday }: RegisterDTO,
     @Res({ passthrough: true }) res: Response,
   ) {
     const token = await this.authService.register(
