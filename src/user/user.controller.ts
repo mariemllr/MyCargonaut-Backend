@@ -24,17 +24,17 @@ import {
   IsString,
 } from 'class-validator';
 import { diskStorage } from 'multer';
-import { AuthService } from 'src/auth/auth.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UserService } from 'src/database/services/user.service';
+import { AuthService } from '../auth/auth.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UserService } from '../database/services/user.service';
 import {
   MAX_USER_IMAGE_FILE_SIZE,
   USER_IMAGE_LOCATION,
-} from 'src/misc/constants';
-import { getEmailFromCookie } from 'src/misc/helper';
+} from '../misc/constants';
+import { getEmailFromCookie } from '../misc/helper';
 import { Response } from 'express';
 import { generate } from 'generate-passphrase';
-import User from 'src/database/entities/user.entity';
+import User from '../database/entities/user.entity';
 import { Type } from 'class-transformer';
 
 class UpdateUserDTO {

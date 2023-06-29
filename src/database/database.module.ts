@@ -6,6 +6,9 @@ import { UserService } from './services/user.service';
 import { OfferModule } from 'src/offer/offer.module';
 import Offer from './entities/offer.entity';
 import { OfferService } from '../offer/offer.service';
+import { VehicleModule } from '../vehicle/vehicle.module';
+import Vehicle from './entities/vehicle.entity';
+import { VehicleService } from './services/vehicle.service';
 
 export const TypeORMDatabaseModule = DefaultTypeOrmModule.forRoot({
   type: 'postgres',
