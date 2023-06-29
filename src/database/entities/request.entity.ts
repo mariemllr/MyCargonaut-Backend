@@ -1,7 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
 import { Status } from 'src/misc/constants';
 @Entity()
-export default class Offer extends BaseEntity {
+export default class Request extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -17,20 +17,11 @@ export default class Offer extends BaseEntity {
   @Column()
   date?: Date;
 
-  @Column({ default: true })
-  festpreis?: boolean;
-
   @Column({ type: 'real' }) // @Frontend: input is needed as String
-  price_freight?: number;
-
-  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
-  price_per_person?: number;
+  price?: number;
 
   @Column()
   seats?: number;
-
-  @Column({ nullable: true })
-  stops?: string;
 
   @Column({ nullable: true, type: 'real' })
   weight?: number;
@@ -61,11 +52,8 @@ export default class Offer extends BaseEntity {
     startlocation: string,
     endlocation: string,
     date: Date,
-    festpreis: boolean,
-    price_freight: number,
-    price_per_person: number,
+    price: number,
     seats: number,
-    stops: string,
     weight: number,
     mass_x: number,
     mass_y: number,
@@ -75,25 +63,22 @@ export default class Offer extends BaseEntity {
     status: Status,
     notes: string,
   ) {
-    const offer = new Offer();
-    offer.userId = userId;
-    offer.startlocation = startlocation;
-    offer.endlocation = endlocation;
-    offer.date = date;
-    offer.festpreis = festpreis;
-    offer.price_freight = price_freight;
-    offer.price_per_person = price_per_person;
-    offer.seats = seats;
-    offer.stops = stops;
-    offer.weight = weight;
-    offer.mass_x = mass_x;
-    offer.mass_y = mass_y;
-    offer.mass_z = mass_z;
-    offer.smoking = smoking;
-    offer.animals = animals;
-    offer.status = status;
-    offer.notes = notes;
+    const request = new Request();
+    request.userId = userId;
+    request.startlocation = startlocation;
+    request.endlocation = endlocation;
+    request.date = date;
+    request.price = price;
+    request.seats = seats;
+    request.weight = weight;
+    request.mass_x = mass_x;
+    request.mass_y = mass_y;
+    request.mass_z = mass_z;
+    request.smoking = smoking;
+    request.animals = animals;
+    request.status = status;
+    request.notes = notes;
 
-    return offer;
+    return request;
   }
 }

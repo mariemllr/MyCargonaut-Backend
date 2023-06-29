@@ -5,7 +5,7 @@ import {
   TypeORMDatabaseModule,
 } from '../database/database.module';
 import { UserController } from './user.controller';
-import { UserService } from '../database/services/user.service';
+import { UserService } from './user.service';
 import { VehicleModule } from '../vehicle/vehicle.module';
 
 @Module({

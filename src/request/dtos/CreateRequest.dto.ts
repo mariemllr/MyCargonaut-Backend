@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class CreateOfferDto {
+export class CreateRequestDto {
     @IsNotEmpty()
     @IsString()
     startlocation: string;
@@ -25,24 +25,12 @@ export class CreateOfferDto {
     date: Date;
 
     @IsNotEmpty()
-    @IsBoolean()
-    festpreis: boolean;
-
-    @IsNotEmpty()
     @IsCurrency()
-    price_freight: number; // @Frontend: input is needed as String
-
-    @IsOptional()
-    @IsCurrency()
-    price_per_person: number; // @Frontend: input is needed as String
+    price: number; // @Frontend: input is needed as String
 
     @IsNotEmpty()
     @IsInt()
     seats: number;
-
-    @IsOptional()
-    @IsString()
-    stops: string;
 
     @IsOptional()
     @IsNumber()

@@ -9,7 +9,7 @@ import {
     IsEmail
   } from 'class-validator';
 import { Type } from 'class-transformer';
-export class UpdateOfferDto {
+export class UpdateRequestDto {
     @IsOptional()
     @IsString()
     startlocation: string;
@@ -24,24 +24,12 @@ export class UpdateOfferDto {
     date: Date;
 
     @IsOptional()
-    @IsBoolean()
-    festpreis: boolean;
-
-    @IsOptional()
     @IsCurrency()
-    price_freight: number;
-
-    @IsOptional()
-    @IsCurrency()
-    price_per_person: number;
+    price: number;
 
     @IsOptional()
     @IsInt()
     seats: number;
-
-    @IsOptional()
-    @IsString()
-    stops: string;
 
     @IsOptional()
     @IsNumber()

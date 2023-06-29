@@ -4,7 +4,7 @@ import {
 } from 'class-validator';
 import { Status } from 'src/misc/constants';
 
-export class UpdateOfferStatusDto {
+export class UpdateRequestStatusDto {
     @IsNotEmpty()
     @IsEnum(Status)
     status: Status

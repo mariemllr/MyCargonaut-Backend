@@ -1,12 +1,11 @@
 import { Body, Controller, Get, Post, Put, Param, Req, Res, UseGuards, Headers, HttpException, HttpStatus, Query, ParseIntPipe, Delete } from '@nestjs/common';
-import { CreateOfferDto } from './dtos/CreateOffer.dto';
 import { OfferService } from './offer.service';
 import { UserService } from '../user/user.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { AuthService } from '../auth/auth.service';
 import { getEmailFromCookie } from '../misc/helper';
 import Offer from '../database/entities/offer.entity';
 import { Status } from '../misc/constants';
+import { CreateOfferDto } from './dtos/CreateOffer.dto';
 import { UpdateOfferDto } from './dtos/UpdateOffer.dto';
 import { UpdateOfferStatusDto } from './dtos/UpdateOfferStatus';
 
@@ -15,7 +14,6 @@ export class OfferController {
     constructor(
         private readonly offerService: OfferService,
         private readonly userService: UserService,
-        private readonly authService: AuthService
     ) {}
 
     @UseGuards(JwtAuthGuard)
