@@ -23,7 +23,13 @@ export class OfferController {
         @Body() createOfferData: CreateOfferDto
     ) {
         const email = getEmailFromCookie(cookie);
+        console.log(email);
         const user = await this.userService.findByEmail(email);
+        console.log(user.id);
+        console.log(createOfferData.price_freight);
+        console.log(typeof(createOfferData.price_freight));
+        console.log(parseFloat(String(createOfferData.price_freight)));
+        console.log(typeof(parseFloat(String(createOfferData.price_freight))));
         if (user === undefined || user === null) {
             throw new HttpException(
               `user could not be found`,
@@ -37,8 +43,8 @@ export class OfferController {
             createOfferData.endlocation,
             createOfferData.date,
             createOfferData.festpreis,
-            createOfferData.price_freight,
-            createOfferData.price_per_person,
+            parseFloat(String(createOfferData.price_freight)),
+            parseFloat(String(createOfferData.price_per_person)),
             createOfferData.seats,
             createOfferData.stops,
             createOfferData.weight,

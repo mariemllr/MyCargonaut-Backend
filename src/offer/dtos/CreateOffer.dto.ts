@@ -12,10 +12,6 @@ import { Type } from 'class-transformer';
 
 export class CreateOfferDto {
     @IsNotEmpty()
-    @IsNumber()
-    userId: number;
-
-    @IsNotEmpty()
     @IsString()
     startlocation: string;
 
@@ -33,10 +29,10 @@ export class CreateOfferDto {
 
     @IsNotEmpty()
     @IsCurrency()
-    price_freight: number;
+    price_freight: number; // @Frontend: input is needed as String
 
     @IsCurrency()
-    price_per_person: number;
+    price_per_person: number; // @Frontend: input is needed as String
 
     @IsNotEmpty()
     @IsInt()

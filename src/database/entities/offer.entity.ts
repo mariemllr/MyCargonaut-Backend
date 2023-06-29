@@ -20,10 +20,10 @@ export default class Offer extends BaseEntity {
   @Column({ default: true })
   festpreis?: boolean;
 
-  @Column()
+  @Column({ type: 'real' }) // @Frontend: input is needed as String
   price_freight?: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
   price_per_person?: number;
 
   @Column()
@@ -32,7 +32,7 @@ export default class Offer extends BaseEntity {
   @Column({ nullable: true })
   stops?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, type: 'real' })
   weight?: number;
 
   @Column({ nullable: true })
