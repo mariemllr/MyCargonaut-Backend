@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import Offer from 'src/database/entities/offer.entity';
 import { Status } from 'src/misc/constants';
-import { UserService } from 'src/database/services/user.service';
+import { UserService } from 'src/user/user.service';
 import { getEmailFromCookie } from 'src/misc/helper';
 import { UpdateOfferStatusDto } from './dtos/UpdateOfferStatus';
 import { UpdateOfferDto } from './dtos/UpdateOffer.dto';

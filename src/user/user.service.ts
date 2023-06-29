@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import User from '../entities/user.entity';
+import User from '../database/entities/user.entity';
 import { compare } from 'bcrypt';
 import { getEmailFromToken, hashUserPassword } from 'src/misc/helper';
 import { promises } from 'fs';

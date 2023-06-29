@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Put, Param, Req, Res, UseGuards, Headers, HttpException, HttpStatus, Query, ParseIntPipe, Delete } from '@nestjs/common';
 import { CreateOfferDto } from './dtos/CreateOffer.dto';
 import { OfferService } from './offer.service';
-import { UserService } from 'src/database/services/user.service';
+import { UserService } from 'src/user/user.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 import { getEmailFromCookie } from 'src/misc/helper';
