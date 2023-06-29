@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res, UseGuards, Headers, HttpException, HttpStatus } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, Param, Req, Res, UseGuards, Headers, HttpException, HttpStatus, Query, ParseIntPipe, Delete } from '@nestjs/common';
 import { CreateOfferDto } from './dtos/CreateOffer.dto';
 import { OfferService } from './offer.service';
 import { UserService } from 'src/database/services/user.service';
@@ -7,6 +7,8 @@ import { AuthService } from 'src/auth/auth.service';
 import { getEmailFromCookie } from 'src/misc/helper';
 import Offer from 'src/database/entities/offer.entity';
 import { Status } from 'src/misc/constants';
+import { UpdateOfferDto } from './dtos/UpdateOffer.dto';
+import { UpdateOfferStatusDto } from './dtos/UpdateOfferStatus';
 
 @Controller('offer')
 export class OfferController {
@@ -23,13 +25,7 @@ export class OfferController {
         @Body() createOfferData: CreateOfferDto
     ) {
         const email = getEmailFromCookie(cookie);
-        console.log(email);
         const user = await this.userService.findByEmail(email);
-        console.log(user.id);
-        console.log(createOfferData.price_freight);
-        console.log(typeof(createOfferData.price_freight));
-        console.log(parseFloat(String(createOfferData.price_freight)));
-        console.log(typeof(parseFloat(String(createOfferData.price_freight))));
         if (user === undefined || user === null) {
             throw new HttpException(
               `user could not be found`,
@@ -38,7 +34,7 @@ export class OfferController {
         }
         const status = Status.statusPending;
         const offer = await Offer.of(
-            (await user).id,
+            user.id,
             createOfferData.startlocation,
             createOfferData.endlocation,
             createOfferData.date,
@@ -61,7 +57,53 @@ export class OfferController {
         return offer;
     }
 
-    // Update
+    @UseGuards(JwtAuthGuard)
+    @Delete(':offerId')
+    async deleteOffer(
+        @Param('offerId', ParseIntPipe) offerId: number,
+        @Headers('cookie') cookie: string,) {
+        return this.offerService.deleteOffer(cookie, offerId);
+    }
 
-    // Edit status
+    @UseGuards(JwtAuthGuard)
+    @Get('myOffers')
+    async getOffersFromUser(@Headers('cookie') cookie: string) {
+        return this.offerService.getOffersFromUser(cookie);
+    }
+
+    @Get() // optional params for query?
+    async getOffersQ(@Query('sortBy') sortBy: string) {
+        return this.offerService.getOffersQ(sortBy);
+    }
+
+    @Get() // standard query
+    async getOffers() {
+        return this.offerService.getOffersQ("asc");
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':offerId')
+    async getById(@Param('offerId', ParseIntPipe) offerId: number) {
+        return this.offerService.getById(offerId);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put(':offerId')
+    async updateOffer(
+        @Param('offerId', ParseIntPipe) offerId: number,
+        @Headers('cookie') cookie: string,
+        @Body() updateOfferData: UpdateOfferDto
+        ) {
+        return this.offerService.updateOffer(cookie, offerId, updateOfferData);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put(':offerId/status')
+    async updateOfferStatus(
+        @Param('offerId', ParseIntPipe) offerId: number,
+        @Headers('cookie') cookie: string,
+        @Body() updateOfferStatus: UpdateOfferStatusDto
+        ) {
+        return this.offerService.updateOfferStatus(cookie, offerId, updateOfferStatus);
+    }
 }

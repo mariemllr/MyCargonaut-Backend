@@ -6,7 +6,7 @@ import {
   IsDate,
   IsBoolean,
   IsInt,
-  IsEmail
+  IsOptional
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -24,6 +24,7 @@ export class CreateOfferDto {
     @Type(() => Date)
     date: Date;
 
+    @IsNotEmpty()
     @IsBoolean()
     festpreis: boolean;
 
@@ -31,6 +32,7 @@ export class CreateOfferDto {
     @IsCurrency()
     price_freight: number; // @Frontend: input is needed as String
 
+    @IsOptional()
     @IsCurrency()
     price_per_person: number; // @Frontend: input is needed as String
 
@@ -38,27 +40,35 @@ export class CreateOfferDto {
     @IsInt()
     seats: number;
 
+    @IsOptional()
     @IsString()
     stops: string;
 
+    @IsOptional()
     @IsNumber()
     weight: number;
 
+    @IsOptional()
     @IsInt()
     mass_x: number;
 
+    @IsOptional()
     @IsInt()
     mass_y: number;
 
+    @IsOptional()
     @IsInt()
     mass_z: number;
 
+    @IsOptional()
     @IsBoolean()
     smoking: boolean;
 
+    @IsOptional()
     @IsBoolean()
     animals: boolean;
 
+    @IsOptional()
     @IsString()
     notes: string;
 }

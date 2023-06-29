@@ -12,7 +12,7 @@ export function getEmailFromToken(token: string): string {
 }
 
 export function getEmailFromCookie(cookie: string): string {
-  return getPayloadFromToken(getTokenFromCookie(cookie)).Email;
+  return getPayloadFromToken(getTokenFromCookie(cookie)).email;
 }
 
 export function getTokenFromCookie(cookie: string): string | null {
