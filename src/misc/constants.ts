@@ -19,3 +19,10 @@ export enum Status {
   statusEnRoute,
   statusPending
 }
+
+export enum VehicleType {
+  PKW,
+  LKW,
+  Anhaenger,
+  Sonstiges,
+}

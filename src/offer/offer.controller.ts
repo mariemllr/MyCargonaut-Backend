@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post, Put, Param, Req, Res, UseGuards, Headers, HttpException, HttpStatus, Query, ParseIntPipe, Delete } from '@nestjs/common';
 import { CreateOfferDto } from './dtos/CreateOffer.dto';
 import { OfferService } from './offer.service';
-import { UserService } from 'src/user/user.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { AuthService } from 'src/auth/auth.service';
-import { getEmailFromCookie } from 'src/misc/helper';
-import Offer from 'src/database/entities/offer.entity';
-import { Status } from 'src/misc/constants';
+import { UserService } from '../user/user.service';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { AuthService } from '../auth/auth.service';
+import { getEmailFromCookie } from '../misc/helper';
+import Offer from '../database/entities/offer.entity';
+import { Status } from '../misc/constants';
 import { UpdateOfferDto } from './dtos/UpdateOffer.dto';
 import { UpdateOfferStatusDto } from './dtos/UpdateOfferStatus';
 

@@ -1,10 +1,12 @@
 import { forwardRef, Module } from '@nestjs/common';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 import {
   DatabaseModule,
   TypeORMDatabaseModule,
-} from 'src/database/database.module';
+} from '../database/database.module';
 import { UserController } from './user.controller';
+import { UserService } from '../database/services/user.service';
+import { VehicleModule } from '../vehicle/vehicle.module';
 
 @Module({
   controllers: [UserController],
@@ -12,6 +14,9 @@ import { UserController } from './user.controller';
     DatabaseModule,
     TypeORMDatabaseModule,
     forwardRef(() => AuthModule),
+    forwardRef(() => VehicleModule),
   ],
+  providers: [UserService],
+  exports: [UserService],
 })
 export class UserModule {}
