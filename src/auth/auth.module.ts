@@ -8,7 +8,7 @@ import { AuthController } from './auth.controller';
 import {
   DatabaseModule,
   TypeORMDatabaseModule,
-} from 'src/database/database.module';
+} from '../database/database.module';
 
 const AuthPassportModule = PassportModule.register({ defaultStrategy: 'jwt' });
 const AuthJwtModule = JwtModule.register({

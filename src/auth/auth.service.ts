@@ -3,7 +3,7 @@ import { UserService } from '../database/services/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException } from '@nestjs/common/exceptions';
 import { HttpStatus } from '@nestjs/common/enums';
-import User from 'src/database/entities/user.entity';
+import User from '../database/entities/user.entity';
 
 @Injectable()
 export class AuthService {
