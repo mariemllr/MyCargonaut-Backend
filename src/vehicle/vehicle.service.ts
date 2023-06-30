@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { UserService } from './user.service';
-import Vehicle from '../entities/vehicle.entity';
-import { VehicleType } from '../../misc/constants';
+import { UserService } from '../user/user.service';
+import Vehicle from '../database/entities/vehicle.entity';
+import { VehicleType } from '../misc/constants';
 
 @Injectable()
 export class VehicleService {

@@ -13,6 +13,13 @@ export const PASSWORD_OPTIONS = {
 export const MAX_USER_IMAGE_FILE_SIZE = 5_000_000;
 export const USER_IMAGE_LOCATION = join('public', 'userImages');
 
+export enum Status {
+  statusDone,
+  statusCollected,
+  statusEnRoute,
+  statusPending
+}
+
 export enum VehicleType {
   PKW,
   LKW,

@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { UserService } from '../database/services/user.service';
+import { UserService } from '../user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { HttpException } from '@nestjs/common/exceptions';
 import { HttpStatus } from '@nestjs/common/enums';

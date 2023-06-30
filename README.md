@@ -16,7 +16,7 @@ Follow these steps to get the project running on your local machine:
 # Clone the repository
 
 `git clone git@github.com:tillkwl/MyCargonaut-Backend.git`
-`cd mycargonaut`
+`cd MyCargonaut-Backend`
 
 # Install dependencies
 
@@ -32,7 +32,7 @@ From within the project directory:
 
 `npm run start:dev`
 
-Now, your server should be running on http://localhost:3000.
+Now, your server should be running on http://localhost:8080.
 
 # Testing
 

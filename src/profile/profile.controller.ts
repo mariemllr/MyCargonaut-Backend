@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { getEmailFromCookie } from 'src/misc/helper';
-import { UserService } from 'src/database/services/user.service';
+import { UserService } from 'src/user/user.service';
 import { IsString, IsOptional, IsDate, IsBoolean } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Response } from 'express';

@@ -26,7 +26,7 @@ import {
 import { diskStorage } from 'multer';
 import { AuthService } from '../auth/auth.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { UserService } from '../database/services/user.service';
+import { UserService } from '../user/user.service';
 import {
   MAX_USER_IMAGE_FILE_SIZE,
   USER_IMAGE_LOCATION,

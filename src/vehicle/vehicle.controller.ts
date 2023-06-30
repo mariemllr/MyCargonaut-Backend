@@ -18,12 +18,10 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import e from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import User from '../database/entities/user.entity';
 import Vehicle from '../database/entities/vehicle.entity';
-import { UserService } from '../database/services/user.service';
-import { VehicleService } from '../database/services/vehicle.service';
+import { UserService } from '../user/user.service';
+import { VehicleService } from './vehicle.service';
 import { VehicleType } from '../misc/constants';
 class UpdateVehicleDto {
   @IsOptional()
