@@ -50,12 +50,6 @@ export default class Vehicle extends BaseEntity {
     vehicle.mass_y = mass_y;
     vehicle.mass_z = mass_z;
     vehicle.weight = weight;
-    if ((await Vehicle.findOne({ where: { userId, name } })) !== null) {
-      throw new HttpException(
-        `vehicle with name '${vehicle.name}' is already registered with user '${userId}'`,
-        HttpStatus.PRECONDITION_FAILED,
-      );
-    }
     return vehicle;
   }
 }

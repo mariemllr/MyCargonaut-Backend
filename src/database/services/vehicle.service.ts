@@ -104,6 +104,36 @@ export class VehicleService {
     return await vehicle.save();
   }
 
+  async createVehicle(
+    userId: number,
+    name: string,
+    type: VehicleType,
+    model: string,
+    mass_x: number,
+    mass_y: number,
+    mass_z: number,
+    weight: number,
+  ) {
+    if ((await Vehicle.findOne({ where: { userId, name } })) !== null) {
+      throw new HttpException(
+        `vehicle with name '${name}' is already registered with user '${userId}'`,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
+    const vehicle = await Vehicle.of(
+      userId,
+      name,
+      type,
+      model,
+      mass_x,
+      mass_y,
+      mass_z,
+      weight,
+    );
+    await vehicle.save();
+    return vehicle;
+  }
+
   /**
    * Return all current Vehicles from user
    * @param email email to identify user
