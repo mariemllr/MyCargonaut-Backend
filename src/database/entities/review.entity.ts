@@ -11,8 +11,8 @@ export default class Review extends BaseEntity {
   userId_reviewed: number;
 
   @Column({ nullable: true })
-  offerId: number;  
-  
+  offerId: number;
+
   @Column({ nullable: true })
   requestId: number;
 
@@ -40,7 +40,7 @@ export default class Review extends BaseEntity {
     visible: boolean,
     answer1: string,
     answer2: string,
-    answer3: string
+    answer3: string,
   ) {
     const review = new Review();
     review.userId_reviewer = userId_reviewer;

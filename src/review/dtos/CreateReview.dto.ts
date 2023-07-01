@@ -3,21 +3,18 @@ import {
   IsString,
   IsBoolean,
   IsInt,
-  IsOptional
+  IsOptional,
+  IsNumber,
 } from 'class-validator';
 
 export class CreateReviewDto {
-  @IsNotEmpty()
-  @IsInt()
-  userId_reviewer: number;
-
   @IsNotEmpty()
   @IsInt()
   userId_reviewed: number;
 
   @IsOptional()
   @IsInt()
-  offerId: number;  
+  offerId: number;
 
   @IsOptional()
   @IsInt()
@@ -28,17 +25,13 @@ export class CreateReviewDto {
   stars: number;
 
   @IsNotEmpty()
-  @IsBoolean()
-  visible: boolean;
-
-  @IsNotEmpty()
   @IsString()
   answer1: string;
 
   @IsNotEmpty()
   @IsString()
   answer2: string;
-  
+
   @IsNotEmpty()
   @IsString()
   answer3: string;
