@@ -8,6 +8,9 @@ export default class Request extends BaseEntity {
   @Column()
   userId: number;
 
+  @Column({ nullable: true })
+  userId_accepter?: number;
+
   @Column()
   startlocation?: string;
 
@@ -49,6 +52,7 @@ export default class Request extends BaseEntity {
 
   static async of(
     userId: number,
+    userId_accepter: number,
     startlocation: string,
     endlocation: string,
     date: Date,
@@ -65,6 +69,7 @@ export default class Request extends BaseEntity {
   ) {
     const request = new Request();
     request.userId = userId;
+    request.userId_accepter = userId_accepter;
     request.startlocation = startlocation;
     request.endlocation = endlocation;
     request.date = date;

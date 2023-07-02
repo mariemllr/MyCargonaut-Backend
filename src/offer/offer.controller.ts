@@ -49,6 +49,7 @@ export class OfferController {
     const status = Status.statusPending;
     const offer = await Offer.of(
       user.id,
+      null,
       createOfferData.startlocation,
       createOfferData.endlocation,
       createOfferData.date,
@@ -110,6 +111,18 @@ export class OfferController {
     @Body() updateOfferData: UpdateOfferDto,
   ) {
     return this.offerService.updateOffer(cookie, offerId, updateOfferData);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Put(':offerId/accept')
+  async acceptOffer(
+    @Param('offerId', ParseIntPipe) offerId: number,
+    @Headers('cookie') cookie: string,
+  ) {
+    return this.offerService.acceptOffer(
+      cookie,
+      offerId
+    );
   }
 
   @UseGuards(JwtAuthGuard)

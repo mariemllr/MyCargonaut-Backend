@@ -8,6 +8,9 @@ export default class Offer extends BaseEntity {
   @Column()
   userId: number;
 
+  @Column({ nullable: true })
+  userId_accepter?: number;
+
   @Column()
   startlocation?: string;
 
@@ -58,6 +61,7 @@ export default class Offer extends BaseEntity {
 
   static async of(
     userId: number,
+    userId_accepter: number,
     startlocation: string,
     endlocation: string,
     date: Date,
@@ -77,6 +81,7 @@ export default class Offer extends BaseEntity {
   ) {
     const offer = new Offer();
     offer.userId = userId;
+    offer.userId_accepter = userId_accepter;
     offer.startlocation = startlocation;
     offer.endlocation = endlocation;
     offer.date = date;

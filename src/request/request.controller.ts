@@ -33,6 +33,7 @@ export class RequestController {
         const status = Status.statusPending;
         const request = await Request.of(
             user.id,
+            null,
             createRequestData.startlocation,
             createRequestData.endlocation,
             createRequestData.date,
@@ -90,6 +91,18 @@ export class RequestController {
         @Body() updateRequestData: UpdateRequestDto
         ) {
         return this.requestService.updateRequest(cookie, requestId, updateRequestData);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put(':requestId/accept')
+    async acceptRequest(
+      @Param('requestId', ParseIntPipe) requestId: number,
+      @Headers('cookie') cookie: string,
+    ) {
+      return this.requestService.acceptRequest(
+        cookie,
+        requestId
+      );
     }
 
     @UseGuards(JwtAuthGuard)
