@@ -103,6 +103,16 @@ export class RequestService {
 
     return await request.save();
   }
+  
+  async acceptRequest(
+    cookie: string, 
+    requestId: number, 
+    ) {
+    const user = await this.extractUser(cookie);
+    const request = await this.getById(requestId);
+    request.userId_accepter = user.id;
+    return await request.save();
+  }
 
   async updateRequestStatus(
     cookie: string,

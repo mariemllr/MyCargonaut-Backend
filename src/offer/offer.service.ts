@@ -104,6 +104,16 @@ export class OfferService {
     return await offer.save();
   }
 
+  async acceptOffer(
+    cookie: string, 
+    offerId: number, 
+    ) {
+    const user = await this.extractUser(cookie);
+    const offer = await this.getById(offerId);
+    offer.userId_accepter = user.id;
+    return await offer.save();
+  }
+
   async updateOfferStatus(
     cookie: string,
     offerId: number,
