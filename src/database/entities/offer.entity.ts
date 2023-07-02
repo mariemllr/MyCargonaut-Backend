@@ -23,8 +23,11 @@ export default class Offer extends BaseEntity {
   @Column({ default: true })
   festpreis?: boolean;
 
-  @Column({ type: 'real' }) // @Frontend: input is needed as String
-  price_freight?: number;
+  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
+  price_absolute?: number;
+
+  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
+  price_per_freight?: number;
 
   @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
   price_per_person?: number;
@@ -66,7 +69,8 @@ export default class Offer extends BaseEntity {
     endlocation: string,
     date: Date,
     festpreis: boolean,
-    price_freight: number,
+    price_absolute: number,
+    price_per_freight: number,
     price_per_person: number,
     seats: number,
     stops: string,
@@ -86,7 +90,8 @@ export default class Offer extends BaseEntity {
     offer.endlocation = endlocation;
     offer.date = date;
     offer.festpreis = festpreis;
-    offer.price_freight = price_freight;
+    price_absolute = price_absolute;
+    offer.price_per_freight = price_per_freight;
     offer.price_per_person = price_per_person;
     offer.seats = seats;
     offer.stops = stops;
