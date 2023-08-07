@@ -5,8 +5,7 @@ import {
     IsString,
     IsDate,
     IsBoolean,
-    IsInt,
-    IsEmail
+    IsInt
   } from 'class-validator';
 import { Type } from 'class-transformer';
 export class UpdateOfferDto {
@@ -29,7 +28,11 @@ export class UpdateOfferDto {
 
     @IsOptional()
     @IsCurrency()
-    price_freight: number;
+    price_absolute: number;
+  
+    @IsOptional()
+    @IsCurrency()
+    price_per_freight: number;
 
     @IsOptional()
     @IsCurrency()

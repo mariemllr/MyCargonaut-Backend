@@ -79,7 +79,8 @@ export class OfferService {
       endlocation?: string;
       date?: Date;
       festpreis?: boolean;
-      price_freight?: number;
+      price_absolute?: number;
+      price_per_freight?: number;
       price_per_person?: number;
       seats?: number;
       stops?: string;

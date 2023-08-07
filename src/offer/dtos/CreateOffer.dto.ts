@@ -28,9 +28,13 @@ export class CreateOfferDto {
   @IsBoolean()
   festpreis: boolean;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsCurrency()
-  price_freight: string; // @Frontend: input is needed as String
+  price_absolute: string; // @Frontend: input is needed as String
+
+  @IsOptional()
+  @IsCurrency()
+  price_per_freight: string; // @Frontend: input is needed as String
 
   @IsOptional()
   @IsCurrency()
