@@ -75,4 +75,12 @@ export class CreateOfferDto {
   @IsOptional()
   @IsString()
   notes: string;
+
+  @IsOptional()
+  @IsString()
+  vehicle: string;
+
+  @IsOptional()
+  @IsString()
+  trailer: string;
 }

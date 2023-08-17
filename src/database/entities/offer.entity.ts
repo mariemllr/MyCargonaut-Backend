@@ -62,6 +62,12 @@ export default class Offer extends BaseEntity {
   @Column({ nullable: true })
   notes?: string;
 
+  @Column({ nullable: true })
+  vehicle?: number;
+
+  @Column({ nullable: true })
+  trailer?: number;
+
   static async of(
     userId: number,
     userId_accepter: number,
@@ -82,6 +88,8 @@ export default class Offer extends BaseEntity {
     animals: boolean,
     status: Status,
     notes: string,
+    vehicle: number,
+    trailer: number,
   ) {
     const offer = new Offer();
     offer.userId = userId;
@@ -103,7 +111,8 @@ export default class Offer extends BaseEntity {
     offer.animals = animals;
     offer.status = status;
     offer.notes = notes;
-
+    offer.vehicle = vehicle;
+    offer.trailer = trailer;
     return offer;
   }
 }

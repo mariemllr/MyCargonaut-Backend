@@ -91,6 +91,10 @@ export class OfferService {
       smoking?: boolean;
       animals?: boolean;
       notes?: string;
+      vehicleName?: string;
+      trailerName?: string;
+      vehicle?: number;
+      trailer?: number;
     },
   ) {
     await this.checkAccess(cookie, offerId);
@@ -105,10 +109,7 @@ export class OfferService {
     return await offer.save();
   }
 
-  async acceptOffer(
-    cookie: string, 
-    offerId: number, 
-    ) {
+  async acceptOffer(cookie: string, offerId: number) {
     const user = await this.extractUser(cookie);
     const offer = await this.getById(offerId);
     offer.userId_accepter = user.id;

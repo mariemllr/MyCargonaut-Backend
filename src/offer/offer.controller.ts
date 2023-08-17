@@ -24,12 +24,14 @@ import { Status } from '../misc/constants';
 import { CreateOfferDto } from './dtos/CreateOffer.dto';
 import { UpdateOfferDto } from './dtos/UpdateOffer.dto';
 import { UpdateOfferStatusDto } from './dtos/UpdateOfferStatus';
+import { VehicleService } from '../vehicle/vehicle.service';
 
 @Controller('offer')
 export class OfferController {
   constructor(
     private readonly offerService: OfferService,
     private readonly userService: UserService,
+    private readonly vehicleService: VehicleService,
   ) {}
 
   @UseGuards(JwtAuthGuard)
@@ -45,6 +47,40 @@ export class OfferController {
         `user could not be found`,
         HttpStatus.PRECONDITION_FAILED,
       );
+    }
+    let vehicleId = null;
+    if (
+      createOfferData.vehicle !== undefined &&
+      createOfferData.vehicle !== null
+    ) {
+      const vehicle = await this.vehicleService.findByEmailAndName(
+        email,
+        createOfferData.vehicle,
+      );
+      if (vehicle === undefined || vehicle === null) {
+        throw new HttpException(
+          `vehicle could not be found`,
+          HttpStatus.PRECONDITION_FAILED,
+        );
+      }
+      vehicleId = vehicle.id;
+    }
+    let trailerId = null;
+    if (
+      createOfferData.trailer !== undefined &&
+      createOfferData.trailer !== null
+    ) {
+      const trailer = await this.vehicleService.findByEmailAndName(
+        email,
+        createOfferData.trailer,
+      );
+      if (trailer === undefined || trailer === null) {
+        throw new HttpException(
+          `trailer could not be found`,
+          HttpStatus.PRECONDITION_FAILED,
+        );
+      }
+      trailerId = trailer.id;
     }
     const status = Status.statusPending;
     const offer = await Offer.of(
@@ -67,6 +103,8 @@ export class OfferController {
       createOfferData.animals,
       status,
       createOfferData.notes,
+      vehicleId,
+      trailerId,
     );
     await offer.save();
     console.log(offer);
@@ -111,6 +149,46 @@ export class OfferController {
     @Headers('cookie') cookie: string,
     @Body() updateOfferData: UpdateOfferDto,
   ) {
+    const email = getEmailFromCookie(cookie);
+    const user = await this.userService.findByEmail(email);
+    if (user === undefined || user === null) {
+      throw new HttpException(
+        `user could not be found`,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
+    if (
+      updateOfferData.vehicleName !== undefined &&
+      updateOfferData.vehicleName !== null
+    ) {
+      const vehicle = await this.vehicleService.findByEmailAndName(
+        email,
+        updateOfferData.vehicleName,
+      );
+      if (vehicle === undefined || vehicle === null) {
+        throw new HttpException(
+          `vehicle could not be found`,
+          HttpStatus.PRECONDITION_FAILED,
+        );
+      }
+      updateOfferData.vehicle = vehicle.id;
+    }
+    if (
+      updateOfferData.trailerName !== undefined &&
+      updateOfferData.trailerName !== null
+    ) {
+      const trailer = await this.vehicleService.findByEmailAndName(
+        email,
+        updateOfferData.trailerName,
+      );
+      if (trailer === undefined || trailer === null) {
+        throw new HttpException(
+          `trailer could not be found`,
+          HttpStatus.PRECONDITION_FAILED,
+        );
+      }
+      updateOfferData.trailer = trailer.id;
+    }
     return this.offerService.updateOffer(cookie, offerId, updateOfferData);
   }
 
@@ -120,10 +198,7 @@ export class OfferController {
     @Param('offerId', ParseIntPipe) offerId: number,
     @Headers('cookie') cookie: string,
   ) {
-    return this.offerService.acceptOffer(
-      cookie,
-      offerId
-    );
+    return this.offerService.acceptOffer(cookie, offerId);
   }
 
   @UseGuards(JwtAuthGuard)
