@@ -23,11 +23,6 @@ export class UpdateProfileDto {
   @IsOptional()
   lastName?: string;
 
-  @IsDate()
-  @IsOptional()
-  @Type(() => Date)
-  birthday?: Date;
-
   @IsBoolean()
   @IsOptional()
   smoker?: boolean;
