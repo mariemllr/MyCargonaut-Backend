@@ -20,16 +20,13 @@ export default class Offer extends BaseEntity {
   @Column()
   date?: Date;
 
-  @Column({ default: true })
-  festpreis?: boolean;
-
-  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
+  @Column({ nullable: true, type: 'real' })
   price_absolute?: number;
 
-  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
+  @Column({ nullable: true, type: 'real' })
   price_per_freight?: number;
 
-  @Column({ nullable: true, type: 'real' }) // @Frontend: input is needed as String
+  @Column({ nullable: true, type: 'real' })
   price_per_person?: number;
 
   @Column()
@@ -56,7 +53,7 @@ export default class Offer extends BaseEntity {
   @Column({ nullable: true })
   animals?: boolean;
 
-  @Column({ default: Status.statusPending})
+  @Column({ default: Status.statusPending })
   status?: Status;
 
   @Column({ nullable: true })
@@ -68,7 +65,6 @@ export default class Offer extends BaseEntity {
     startlocation: string,
     endlocation: string,
     date: Date,
-    festpreis: boolean,
     price_absolute: number,
     price_per_freight: number,
     price_per_person: number,
@@ -89,8 +85,7 @@ export default class Offer extends BaseEntity {
     offer.startlocation = startlocation;
     offer.endlocation = endlocation;
     offer.date = date;
-    offer.festpreis = festpreis;
-    price_absolute = price_absolute;
+    offer.price_absolute = price_absolute;
     offer.price_per_freight = price_per_freight;
     offer.price_per_person = price_per_person;
     offer.seats = seats;

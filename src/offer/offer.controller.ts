@@ -53,10 +53,9 @@ export class OfferController {
       createOfferData.startlocation,
       createOfferData.endlocation,
       createOfferData.date,
-      createOfferData.festpreis,
-      parseFloat(String(createOfferData.price_absolute)),
-      parseFloat(String(createOfferData.price_per_freight)),
-      parseFloat(String(createOfferData.price_per_person)),
+      createOfferData.price_absolute,
+      createOfferData.price_per_freight,
+      createOfferData.price_per_person,
       createOfferData.seats,
       createOfferData.stops,
       createOfferData.weight,
@@ -120,10 +119,7 @@ export class OfferController {
     @Param('offerId', ParseIntPipe) offerId: number,
     @Headers('cookie') cookie: string,
   ) {
-    return this.offerService.acceptOffer(
-      cookie,
-      offerId
-    );
+    return this.offerService.acceptOffer(cookie, offerId);
   }
 
   @UseGuards(JwtAuthGuard)

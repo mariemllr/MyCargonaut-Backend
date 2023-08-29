@@ -24,21 +24,17 @@ export class CreateOfferDto {
   @Type(() => Date)
   date: Date;
 
-  @IsNotEmpty()
-  @IsBoolean()
-  festpreis: boolean;
+  @IsOptional()
+  @IsNumber()
+  price_absolute: number;
 
   @IsOptional()
-  @IsCurrency()
-  price_absolute: string; // @Frontend: input is needed as String
+  @IsNumber()
+  price_per_freight: number;
 
   @IsOptional()
-  @IsCurrency()
-  price_per_freight: string; // @Frontend: input is needed as String
-
-  @IsOptional()
-  @IsCurrency()
-  price_per_person: string; // @Frontend: input is needed as String
+  @IsNumber()
+  price_per_person: number;
 
   @IsNotEmpty()
   @IsInt()
