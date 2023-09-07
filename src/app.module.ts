@@ -14,6 +14,7 @@ import { VehicleService } from './vehicle/vehicle.service';
 import { ReviewController } from './review/review.controller';
 import { ReviewService } from './review/review.service';
 import { ReviewModule } from './review/review.module';
+import { HttpModule } from "@nestjs/axios";
 @Module({
   imports: [
     OfferModule,
@@ -25,6 +26,7 @@ import { ReviewModule } from './review/review.module';
     ProfileModule,
     RequestModule,
     ReviewModule,
+    HttpModule,
   ],
   exports: [AuthModule, DatabaseModule, UserModule],
   providers: [OfferService, VehicleService, ReviewService],

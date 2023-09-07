@@ -32,6 +32,7 @@ export class OfferController {
     private readonly userService: UserService,
   ) {}
 
+
   @UseGuards(JwtAuthGuard)
   @Post('create')
   async createOffer(
