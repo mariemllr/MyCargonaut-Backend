@@ -1,8 +1,11 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import Offer from 'src/database/entities/offer.entity';
-import { UserService } from 'src/user/user.service';
-import { getEmailFromCookie } from 'src/misc/helper';
+import Offer from '../database/entities/offer.entity';
+import { UserService } from '../user/user.service';
+import { getEmailFromCookie } from '../misc/helper';
 import { UpdateOfferStatusDto } from './dtos/UpdateOfferStatus';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import User from '../database/entities/user.entity';
 
 @Injectable()
 export class OfferService {
@@ -96,7 +99,7 @@ export class OfferService {
     await this.checkAccess(cookie, offerId);
     const offer = await this.getById(offerId);
 
-    for (let [key, value] of Object.entries(newValue).filter(
+    for (const [key, value] of Object.entries(newValue).filter(
       ([_, value]) => value !== undefined && value !== null,
     )) {
       offer[key] = value;
@@ -105,10 +108,7 @@ export class OfferService {
     return await offer.save();
   }
 
-  async acceptOffer(
-    cookie: string, 
-    offerId: number, 
-    ) {
+  async acceptOffer(cookie: string, offerId: number) {
     const user = await this.extractUser(cookie);
     const offer = await this.getById(offerId);
     offer.userId_accepter = user.id;

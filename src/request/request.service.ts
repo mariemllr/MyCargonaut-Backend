@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
-import Request from 'src/database/entities/request.entity';
-import { UserService } from 'src/user/user.service';
-import { getEmailFromCookie } from 'src/misc/helper';
+import Request from '../database/entities/request.entity';
+import { UserService } from '../user/user.service';
+import { getEmailFromCookie } from '../misc/helper';
 import { UpdateRequestStatusDto } from './dtos/UpdateRequestStatus';
 
 @Injectable()

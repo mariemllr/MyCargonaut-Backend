@@ -1,5 +1,5 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
-import { Status } from 'src/misc/constants';
+import { Status } from '../../misc/constants';
 @Entity()
 export default class Request extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -44,7 +44,7 @@ export default class Request extends BaseEntity {
   @Column({ nullable: true })
   animals?: boolean;
 
-  @Column({ default: Status.statusPending})
+  @Column({ default: Status.statusPending })
   status?: Status;
 
   @Column({ nullable: true })

@@ -28,6 +28,6 @@ import { ReviewModule } from './review/review.module';
   ],
   exports: [AuthModule, DatabaseModule, UserModule],
   providers: [OfferService, VehicleService, ReviewService],
-  controllers: [ReviewController]
+  controllers: [ReviewController],
 })
 export class AppModule {}

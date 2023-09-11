@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateReviewDto } from './dtos/CreateReview.dto';
-import { UserService } from 'src/user/user.service';
-import { getEmailFromCookie } from 'src/misc/helper';
-import Review from 'src/database/entities/review.entity';
-import User from 'src/database/entities/user.entity';
-import { OfferService } from 'src/offer/offer.service';
-import { RequestService } from 'src/request/request.service';
-import { Status } from 'src/misc/constants';
+import { UserService } from '../user/user.service';
+import { getEmailFromCookie } from '../misc/helper';
+import Review from '../database/entities/review.entity';
+import User from '../database/entities/user.entity';
+import { OfferService } from '../offer/offer.service';
+import { RequestService } from '../request/request.service';
+import { Status } from '../misc/constants';
 
 @Injectable()
 export class ReviewService {

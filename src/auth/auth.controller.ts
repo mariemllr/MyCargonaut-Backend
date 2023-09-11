@@ -18,7 +18,7 @@ import {
   IsDate,
   IsOptional,
 } from 'class-validator';
-import { PASSWORD_OPTIONS } from 'src/misc/constants';
+import { PASSWORD_OPTIONS } from '../misc/constants';
 import { Type } from 'class-transformer';
 
 class LoginDTO {

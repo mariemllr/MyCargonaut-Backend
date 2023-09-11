@@ -1,5 +1,5 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from 'typeorm';
-import { Status } from 'src/misc/constants';
+import { Status } from '../../misc/constants';
 @Entity()
 export default class Offer extends BaseEntity {
   @PrimaryGeneratedColumn()
