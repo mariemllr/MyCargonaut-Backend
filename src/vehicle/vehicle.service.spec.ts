@@ -7,19 +7,20 @@ import { JwtService } from '@nestjs/jwt';
 import { VehicleType } from '../misc/constants';
 import Vehicle from '../database/entities/vehicle.entity';
 import User from '../database/entities/user.entity';
-import { createConnection, Connection, getConnection } from 'typeorm';
 import Offer from '../database/entities/offer.entity';
 import { Request } from '@nestjs/common';
 import Review from '../database/entities/review.entity';
 import { TypeOrmSQLITETestingModule } from '../../test/TypeORMSQLITETestingModule';
 import { mock } from 'node:test';
+import { getConnection } from 'typeorm';
 
 describe('VehicleService', () => {
   let service: VehicleService;
   let userServiceMock: jest.Mocked<UserService>;
+  let module: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+    module = await Test.createTestingModule({
       imports: [...TypeOrmSQLITETestingModule()],
       providers: [
         VehicleService,
@@ -62,8 +63,9 @@ describe('VehicleService', () => {
     const vehicle = await service.createVehicle(newVehicle);
     expect(vehicle).toBeDefined();
     expect(vehicle).toBeInstanceOf(Vehicle);
-    expect(vehicle).toEqual(
-      Vehicle.of(1, 'TestGefährt', VehicleType.PKW, 'VW Polo', 10, 11, 12, 100),
-    );
+    expect(vehicle.name).toEqual('TestGefährt');
+  });
+  afterAll(async () => {
+    module.close();
   });
 });

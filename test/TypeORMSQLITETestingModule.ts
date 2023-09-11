@@ -7,7 +7,7 @@ import Offer from '../src/database/entities/offer.entity';
 
 export const TypeOrmSQLITETestingModule = () => [
   TypeOrmModule.forRoot({
-    type: 'better-sqlite3',
+    type: 'sqlite',
     database: ':memory:',
     dropSchema: true,
     entities: [Vehicle, User, Review, Request, Offer],
