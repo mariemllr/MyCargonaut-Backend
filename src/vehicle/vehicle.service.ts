@@ -9,6 +9,44 @@ export class VehicleService {
   logger: Logger = new Logger('VehicleService');
 
   /**
+   * creates a new vehicle
+   * @param newVehicle data of new vehicle object
+   * @returns vehicle
+   */
+  async createVehicle(newVehicle: {
+    user_email: string;
+    name: string;
+    type: VehicleType;
+    model: string;
+    mass_x: number;
+    mass_y: number;
+    mass_z: number;
+    weight: number;
+  }): Promise<Vehicle> {
+    const user = this.userService.findByEmail(newVehicle.user_email);
+    if (user === undefined || user === null) {
+      throw new HttpException(
+        `user '${newVehicle.user_email}' could not be found`,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
+    const vehicle = await Vehicle.of(
+      (
+        await user
+      ).id,
+      newVehicle.name,
+      newVehicle.type,
+      newVehicle.model,
+      newVehicle.mass_x,
+      newVehicle.mass_y,
+      newVehicle.mass_z,
+      newVehicle.weight,
+    );
+    await vehicle.save();
+    return vehicle;
+  }
+
+  /**
    * Delete Vehicle from Vehicle array
    * @param email to identify user
    * @param name to identify vehicle
@@ -96,7 +134,7 @@ export class VehicleService {
         `vehicle from user '${email}' with name '${name}' could not be found`,
         HttpStatus.PRECONDITION_FAILED,
       );
-    for (let [key, value] of Object.entries(newValue).filter(
+    for (const [key, value] of Object.entries(newValue).filter(
       ([_, value]) => value !== undefined && value !== null,
     )) {
       vehicle[key] = value;

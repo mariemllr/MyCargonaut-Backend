@@ -103,20 +103,7 @@ export class VehicleController {
         HttpStatus.PRECONDITION_FAILED,
       );
     }
-    const vehicle = await Vehicle.of(
-      (
-        await user
-      ).id,
-      createVehicleDto.name,
-      createVehicleDto.type,
-      createVehicleDto.model,
-      createVehicleDto.mass_x,
-      createVehicleDto.mass_y,
-      createVehicleDto.mass_z,
-      createVehicleDto.weight,
-    );
-    await vehicle.save();
-    return vehicle;
+    return this.vehicleService.createVehicle(createVehicleDto);
   }
 
   @UseGuards(JwtAuthGuard)
