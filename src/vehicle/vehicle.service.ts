@@ -80,17 +80,6 @@ export class VehicleService {
     }
   }
 
-  async findById(id: number): Promise<Vehicle | undefined> {
-    try {
-      const vehicle = await Vehicle.findOneOrFail({
-        where: { id },
-      });
-      return vehicle;
-    } catch (error) {
-      return undefined;
-    }
-  }
-
   async findByEmailAndName(
     email: string,
     name: string,
