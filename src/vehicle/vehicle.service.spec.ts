@@ -192,7 +192,30 @@ describe('VehicleService', () => {
     expect(vehicle.userId).toEqual(1);
   });
 
-  it('should be able to delete vehicle', async () => {});
+  it('should be able to delete vehicle', async () => {
+    userServiceMock.findByEmail.mockReturnValue(
+      Promise.resolve(testUser as unknown as User & { isOnline: boolean }),
+    );
+    const success = await service.deleteVehicle(
+      'testuser2@unittest.com',
+      'Test',
+    );
+    expect(success).toEqual(true);
+    const vehicle = await service.findByEmailAndName(
+      'testuser2@unittest.com',
+      'Test',
+    );
+    expect(vehicle).toBeNull();
+  });
 
-  it('should not be able to find vehicle that does not exist', async () => {});
+  it('should not be able to find vehicle that does not exist', async () => {
+    userServiceMock.findByEmail.mockReturnValue(
+      Promise.resolve(testUser as unknown as User & { isOnline: boolean }),
+    );
+    const vehicle = await service.findByEmailAndName(
+      'testuser2@unittest.com',
+      'Test3',
+    );
+    expect(vehicle).toBeNull();
+  });
 });

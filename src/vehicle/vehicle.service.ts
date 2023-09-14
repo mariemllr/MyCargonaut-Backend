@@ -57,7 +57,7 @@ export class VehicleService {
     if (user === undefined || user === null) return false;
     const vehicle = await this.findOne(user.id, name);
     if (vehicle === undefined || vehicle === null) return false;
-    vehicle.remove();
+    await vehicle.remove();
     return true;
   }
 
