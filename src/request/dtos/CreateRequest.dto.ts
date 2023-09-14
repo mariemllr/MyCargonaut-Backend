@@ -1,12 +1,11 @@
 import {
   IsNotEmpty,
   IsNumber,
-  IsCurrency,
   IsString,
   IsDate,
   IsBoolean,
   IsInt,
-  IsOptional
+  IsOptional,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -23,10 +22,6 @@ export class CreateRequestDto {
   @IsDate()
   @Type(() => Date)
   date: Date;
-
-  @IsNotEmpty()
-  @IsCurrency()
-  price: number; // @Frontend: input is needed as String
 
   @IsNotEmpty()
   @IsInt()

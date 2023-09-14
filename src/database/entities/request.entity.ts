@@ -20,9 +20,6 @@ export default class Request extends BaseEntity {
   @Column()
   date?: Date;
 
-  @Column({ type: 'real' }) // @Frontend: input is needed as String
-  price?: number;
-
   @Column()
   seats?: number;
 
@@ -56,7 +53,6 @@ export default class Request extends BaseEntity {
     startlocation: string,
     endlocation: string,
     date: Date,
-    price: number,
     seats: number,
     weight: number,
     mass_x: number,
@@ -73,7 +69,6 @@ export default class Request extends BaseEntity {
     request.startlocation = startlocation;
     request.endlocation = endlocation;
     request.date = date;
-    request.price = price;
     request.seats = seats;
     request.weight = weight;
     request.mass_x = mass_x;

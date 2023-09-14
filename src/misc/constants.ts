@@ -17,7 +17,7 @@ export enum Status {
   statusDone,
   statusCollected,
   statusEnRoute,
-  statusPending
+  statusPending,
 }
 
 export enum VehicleType {
