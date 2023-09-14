@@ -94,6 +94,10 @@ export class OfferService {
       smoking?: boolean;
       animals?: boolean;
       notes?: string;
+      vehicleName?: string;
+      trailerName?: string;
+      vehicle?: number;
+      trailer?: number;
     },
   ) {
     await this.checkAccess(cookie, offerId);

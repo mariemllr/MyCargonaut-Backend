@@ -1,10 +1,11 @@
 import { VehicleService } from './vehicle.service';
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { VehicleController } from './vehicle.controller';
 import {
   DatabaseModule,
   TypeORMDatabaseModule,
 } from '../database/database.module';
+import { OfferModule } from 'src/offer/offer.module';
 
 @Module({
   imports: [DatabaseModule, TypeORMDatabaseModule],
