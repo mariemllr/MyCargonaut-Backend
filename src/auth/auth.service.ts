@@ -40,16 +40,25 @@ export class AuthService {
     phone: string,
     birthday: Date,
   ) {
-    const user = await User.of(
-      email,
-      password,
-      firstName,
-      lastName,
-      phone,
-      birthday,
-    );
-    await user.save();
-    return this.login(email, password);
+    const timeDiff = Math.abs(Date.now() - birthday.getTime());
+    const age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
+    if (age >= 18) {
+      const user = await User.of(
+        email,
+        password,
+        firstName,
+        lastName,
+        phone,
+        birthday,
+      );
+      await user.save();
+      return this.login(email, password);
+    } else {
+      throw new HttpException(
+        `user needs to be at least 18 years old`,
+        HttpStatus.PRECONDITION_FAILED,
+      );
+    }
   }
 
   /**

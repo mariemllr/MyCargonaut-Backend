@@ -51,7 +51,7 @@ class RegisterDTO {
   @IsMobilePhone('de-DE')
   phone: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsDate()
   @Type(() => Date)
   birthday: Date;
