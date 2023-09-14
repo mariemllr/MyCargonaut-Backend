@@ -1,5 +1,6 @@
 import { hash } from 'bcrypt';
 import { ROUNDS } from './constants';
+import { JwtService } from '@nestjs/jwt';
 
 export function getPayloadFromToken(token: string): { [key: string]: string } {
   return JSON.parse(
@@ -26,4 +27,8 @@ export function getTokenFromCookie(cookie: string): string | null {
 
 export async function hashUserPassword(password: string): Promise<string> {
   return hash(password, ROUNDS);
+}
+
+export async function generateToken(email: string) {
+  return new JwtService().sign({ email });
 }

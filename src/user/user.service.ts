@@ -55,7 +55,7 @@ export class UserService {
   async deleteUser(email: string): Promise<boolean> {
     const user = await this.findOne(email);
     if (user === undefined || user === null) return false;
-    user.remove();
+    await user.remove();
     return true;
   }
 
