@@ -129,8 +129,9 @@ export class VehicleController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':email')
-  async all(@Param('email') email: string) {
+  @Get()
+  async all(@Headers('cookie') cookie: string) {
+    const email = getEmailFromCookie(cookie);
     return this.vehicleService.getVehicles(email);
   }
 
