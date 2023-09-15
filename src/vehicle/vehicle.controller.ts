@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   HttpException,
   HttpStatus,
   Param,
@@ -11,7 +12,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import {
-  IsEmail,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -23,6 +23,7 @@ import Vehicle from '../database/entities/vehicle.entity';
 import { UserService } from '../user/user.service';
 import { VehicleService } from './vehicle.service';
 import { VehicleType } from '../misc/constants';
+import { getEmailFromCookie } from 'src/misc/helper';
 class UpdateVehicleDto {
   @IsOptional()
   @IsString()
@@ -54,10 +55,6 @@ class UpdateVehicleDto {
 }
 
 class CreateVehicleDto {
-  @IsNotEmpty()
-  @IsEmail()
-  user_email: string;
-
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -95,18 +92,20 @@ export class VehicleController {
 
   @UseGuards(JwtAuthGuard)
   @Post('create')
-  async createVehicle(@Body() createVehicleDto: CreateVehicleDto) {
-    const user = this.userService.findByEmail(createVehicleDto.user_email);
+  async createVehicle(
+    @Headers('cookie') cookie: string,
+    @Body() createVehicleDto: CreateVehicleDto,
+  ) {
+    const email = getEmailFromCookie(cookie);
+    const user = await this.userService.findByEmail(email);
     if (user === undefined || user === null) {
       throw new HttpException(
-        `user '${createVehicleDto.user_email}' could not be found`,
+        `user could not be found`,
         HttpStatus.PRECONDITION_FAILED,
       );
     }
     const vehicle = await Vehicle.of(
-      (
-        await user
-      ).id,
+      user.id,
       createVehicleDto.name,
       createVehicleDto.type,
       createVehicleDto.model,
