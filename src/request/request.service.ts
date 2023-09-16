@@ -44,7 +44,7 @@ export class RequestService {
   async deleteRequest(cookie: string, requestId: number) {
     await this.checkAccess(cookie, requestId);
     const request = await this.getById(requestId);
-    request.remove();
+    await request.remove();
     return true;
   }
 
@@ -103,11 +103,8 @@ export class RequestService {
 
     return await request.save();
   }
-  
-  async acceptRequest(
-    cookie: string, 
-    requestId: number, 
-    ) {
+
+  async acceptRequest(cookie: string, requestId: number) {
     const user = await this.extractUser(cookie);
     const request = await this.getById(requestId);
     request.userId_accepter = user.id;

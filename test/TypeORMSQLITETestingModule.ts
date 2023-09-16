@@ -2,8 +2,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import Vehicle from '../src/database/entities/vehicle.entity';
 import User from '../src/database/entities/user.entity';
 import Review from '../src/database/entities/review.entity';
-import { Request } from '@nestjs/common';
 import Offer from '../src/database/entities/offer.entity';
+import Request from '../src/database/entities/request.entity';
 
 export const TypeOrmSQLITETestingModule = () => [
   TypeOrmModule.forRoot({
