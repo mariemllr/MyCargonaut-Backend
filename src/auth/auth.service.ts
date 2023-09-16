@@ -25,6 +25,7 @@ export class AuthService {
         'user could not be authenticated',
         HttpStatus.UNAUTHORIZED,
       );
+    console.log(this.generateToken(email));
     return this.generateToken(email);
   }
 

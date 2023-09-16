@@ -47,7 +47,7 @@ export class OfferService {
   async deleteOffer(cookie: string, offerId: number) {
     await this.checkAccess(cookie, offerId);
     const offer = await this.getById(offerId);
-    offer.remove();
+    await offer.remove();
     return true;
   }
 
