@@ -51,7 +51,7 @@ class UpdateVehicleDto {
 
   @IsOptional()
   @IsNumber()
-  weigth?: number;
+  weight?: number;
 }
 
 class CreateVehicleDto {
@@ -119,12 +119,13 @@ export class VehicleController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Put(':email/:name')
+  @Put(':name')
   async updateVehicle(
-    @Param('email') email: string,
+    @Headers('cookie') cookie: string,
     @Param('name') name: string,
     @Body() updateVehicleDto: UpdateVehicleDto,
   ) {
+    const email = getEmailFromCookie(cookie);
     return this.vehicleService.updateVehicle(email, name, updateVehicleDto);
   }
 
@@ -145,11 +146,12 @@ export class VehicleController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(':email/:name')
+  @Get(':name')
   async vehicleExists(
-    @Param('email') email: string,
+    @Headers('cookie') cookie: string,
     @Param('name') name: string,
   ): Promise<boolean> {
+    const email = getEmailFromCookie(cookie);
     const vehicle = await this.vehicleService.findByEmailAndName(email, name);
     const exists = vehicle !== undefined && vehicle !== null;
     return exists;
