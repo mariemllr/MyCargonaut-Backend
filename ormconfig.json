@@ -1,6 +1,6 @@
 {
   "type": "postgres",
-  "host": "localhost",
+  "host": "mycargonaut-postgres.cvti62mnyeqb.eu-north-1.rds.amazonaws.com",
   "port": 5432,
   "username": "postgres",
   "password": "cargomaus69",
