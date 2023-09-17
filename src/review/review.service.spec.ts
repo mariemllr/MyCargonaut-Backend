@@ -16,11 +16,8 @@ describe('ReviewService', () => {
   let userServiceMock: UserService;
   let testUser: User;
   let offerServiceMock: OfferService;
-  let requestServiceMock: RequestService;
   let offer: Offer;
-  let offer2: Offer;
   let testUser2: User;
-  let request: Request;
   const token =
     'token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3R1c2VyQHVuaXR0ZXN0LmNvbSIsImlhdCI6MTY5NDg1NDA3OCwiZXhwIjoxNjk0OTQwNDc4fQ.Mldspv9d3mCL1vlpjwejLF2O0c6RP1etgcWCViOZrHI; Path=/; Expires=Sun, 17 Sep 2023 08:47:58 GMT;';
   const token2 =
@@ -40,8 +37,6 @@ describe('ReviewService', () => {
     service = module.get<ReviewService>(ReviewService);
     userServiceMock = module.get<jest.Mocked<UserService>>(UserService);
     offerServiceMock = module.get<jest.Mocked<OfferService>>(OfferService);
-    requestServiceMock =
-      module.get<jest.Mocked<RequestService>>(RequestService);
     const mockUser = User.of(
       'testuser@unittest.com',
       'Test123!',
@@ -57,40 +52,6 @@ describe('ReviewService', () => {
       'Mustermann',
     );
     await testUser2.save();
-    const request1 = await Request.of(
-      1,
-      2,
-      'Siegen',
-      'Gießen',
-      new Date('2023-12-23'),
-      1,
-      0,
-      0,
-      0,
-      0,
-      true,
-      false,
-      Status.statusDone,
-      '',
-    );
-    await request1.save();
-    request = await Request.of(
-      1,
-      2,
-      'Siegen',
-      'Gießen',
-      new Date('2023-12-23'),
-      1,
-      0,
-      0,
-      0,
-      0,
-      true,
-      false,
-      Status.statusDone,
-      '',
-    );
-    request = await request.save();
     offer = await Offer.of(
       1,
       2,
@@ -114,29 +75,10 @@ describe('ReviewService', () => {
       null,
     );
     await offer.save();
-    offer2 = await Offer.of(
-      1,
-      2,
-      'Berlin',
-      'Giessen',
-      new Date('2024-01-04'),
-      50,
-      0,
-      0,
-      1,
-      '',
-      100,
-      0,
-      0,
-      0,
-      true,
-      false,
-      Status.statusDone,
-      '',
-      null,
-      null,
-    );
-    await offer2.save();
+    const review = await Review.of(3, 1, 2, null, 4, false, '', '', '');
+    await review.save();
+    const review2 = await Review.of(4, 1, 3, null, 4, true, '', '', '');
+    await review2.save();
   });
 
   it('should be defined', () => {
@@ -156,7 +98,6 @@ describe('ReviewService', () => {
       answer2: 'Antwort 2',
       answer3: 'Antwort 3',
     });
-    console.log(review);
     expect(review).toBeDefined();
     expect(review).toBeInstanceOf(Review);
     expect(review.userId_reviewed).toEqual(2);
@@ -167,7 +108,7 @@ describe('ReviewService', () => {
     expect(review.answer3).toEqual('Antwort 3');
     expect(review.visible).toEqual(false);
     expect(review.requestId).toBeNull();
-    expect(review.id).toEqual(1);
+    expect(review.id).toEqual(3);
     userServiceMock.findByEmail = jest.fn(() =>
       Promise.resolve(testUser2 as unknown as User & { isOnline: boolean }),
     );
@@ -188,64 +129,42 @@ describe('ReviewService', () => {
     expect(review2.answer2).toEqual('Antwort 2 von 2.');
     expect(review2.answer3).toEqual('Antwort 3 von 2.');
     expect(review2.visible).toEqual(true);
-    expect(review2.id).toEqual(2);
+    expect(review2.id).toEqual(4);
     review = await Review.findOne({ where: { id: 1 } });
     expect(review.visible).toBeTruthy;
   });
 
-  it('should be able to create review for request', async () => {
-    //requestServiceMock.getById = jest.fn(() => Promise.resolve(request));
-    offerServiceMock.getById = jest.fn(() => Promise.resolve(offer2));
+  it('should be able to get reviews by cookie', async () => {
     userServiceMock.findByEmail = jest.fn(() =>
       Promise.resolve(testUser as unknown as User & { isOnline: boolean }),
     );
-    let reviewR = await service.createReview(token, {
-      userId_reviewed: 2,
-      stars: 1,
-      answer1: 'Antwort 1 request',
-      answer2: 'Antwort 2 request',
-      answer3: 'Antwort 3 request',
-      requestId: null,
-      offerId: 2,
-    });
-    console.log(reviewR);
-    expect(reviewR).toBeDefined();
-    expect(reviewR).toBeInstanceOf(Review);
-    expect(reviewR.userId_reviewed).toEqual(2);
-    expect(reviewR.offerId).toEqual(null);
-    expect(reviewR.requestId).toEqual(2);
-    expect(reviewR.stars).toEqual(1);
-    expect(reviewR.answer1).toEqual('Antwort 1 request');
-    expect(reviewR.answer2).toEqual('Antwort 2 request');
-    expect(reviewR.answer3).toEqual('Antwort 3 request');
-    expect(reviewR.visible).toEqual(false);
-    expect(reviewR.id).toEqual(3);
-    userServiceMock.findByEmail = jest.fn(() =>
-      Promise.resolve(testUser2 as unknown as User & { isOnline: boolean }),
-    );
-    const review2 = await service.createReview(token2, {
-      userId_reviewed: 1,
-      stars: 3,
-      answer1: 'Antwort 1 von 2.',
-      answer2: 'Antwort 2 von 2.',
-      answer3: 'Antwort 3 von 2.',
-      requestId: 2,
-    });
-    expect(review2).toBeDefined();
-    expect(review2).toBeInstanceOf(Review);
-    expect(review2.userId_reviewed).toEqual(1);
-    expect(review2.offerId).toEqual(null);
-    expect(review2.requestId).toEqual(2);
-    expect(review2.stars).toEqual(3);
-    expect(review2.answer1).toEqual('Antwort 1 von 2.');
-    expect(review2.answer2).toEqual('Antwort 2 von 2.');
-    expect(review2.answer3).toEqual('Antwort 3 von 2.');
-    expect(review2.visible).toEqual(true);
-    reviewR = await Review.findOne({ where: { id: 3 } });
-    expect(reviewR.visible).toBeTruthy;
+    const reviews = await service.getReviewsByCookie(token);
+    expect(reviews).toBeDefined();
+    expect(reviews).toHaveLength(1);
+    expect(reviews[0].userId_reviewed).toEqual(1);
+    expect(reviews[0].offerId).toEqual(3);
+    expect(reviews[0].stars).toEqual(4);
+    expect(reviews[0].answer1).toEqual('');
+    expect(reviews[0].answer2).toEqual('');
+    expect(reviews[0].answer3).toEqual('');
+    expect(reviews[0].visible).toEqual(true);
+    expect(reviews[0].id).toEqual(2);
   });
 
-  it('should be able to get reviews by cookie', () => {});
-
-  it('should be able to get only visible reviews by userid', () => {});
+  it('should be able to get only visible reviews by userid', async () => {
+    userServiceMock.findByEmail = jest.fn(() =>
+      Promise.resolve(testUser as unknown as User & { isOnline: boolean }),
+    );
+    const reviews = await service.getReviewsByUserId(1);
+    expect(reviews).toBeDefined();
+    expect(reviews).toHaveLength(1);
+    expect(reviews[0].userId_reviewed).toEqual(1);
+    expect(reviews[0].offerId).toEqual(3);
+    expect(reviews[0].stars).toEqual(4);
+    expect(reviews[0].answer1).toEqual('');
+    expect(reviews[0].answer2).toEqual('');
+    expect(reviews[0].answer3).toEqual('');
+    expect(reviews[0].visible).toEqual(true);
+    expect(reviews[0].id).toEqual(2);
+  });
 });
