@@ -1,10 +1,10 @@
 {
   "type": "postgres",
-  "host": "awseb-e-mqbqqy3yvu-stack-awsebrdsdatabase-m5a8ybysibtd.cvti62mnyeqb.eu-north-1.rds.amazonaws.com",
+  "host": "cargonaut-db-1.cvti62mnyeqb.eu-north-1.rds.amazonaws.com",
   "port": 5432,
   "username": "postgres",
   "password": "cargomaus69",
-  "database": "postgres",
+  "database": "cargonautpostgresdb",
   "entities": ["dist/**/*.entity{.ts,.js}"],
   "synchronize": true
 }
