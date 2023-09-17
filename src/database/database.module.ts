@@ -13,6 +13,7 @@ export const TypeORMDatabaseModule = DefaultTypeOrmModule.forRoot({
   database: 'cargonautpostgresdb',
   entities: [join(__dirname, 'entities', '*.entity{.ts,.js}')],
   synchronize: true,
+  ssl: { rejectUnauthorized: false },
 });
 
 @Module({
