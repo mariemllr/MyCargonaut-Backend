@@ -6,11 +6,11 @@ import { UserService } from '../user/user.service';
 
 export const TypeORMDatabaseModule = DefaultTypeOrmModule.forRoot({
   type: 'postgres',
-  host: 'localhost',
+  host: 'cargonaut-db-1.cvti62mnyeqb.eu-north-1.rds.amazonaws.com',
   port: 5432, // Docker Container Port
   username: 'postgres',
   password: 'cargomaus69',
-  database: 'postgres',
+  database: 'cargonautpostgresdb',
   entities: [join(__dirname, 'entities', '*.entity{.ts,.js}')],
   synchronize: true,
 });
