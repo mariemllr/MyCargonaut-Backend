@@ -3,10 +3,10 @@ import { OfferController } from './offer.controller';
 import {
   DatabaseModule,
   TypeORMDatabaseModule,
-} from 'src/database/database.module';
+} from '../database/database.module';
 import { OfferService } from './offer.service';
-import { AuthModule } from 'src/auth/auth.module';
-import { VehicleModule } from 'src/vehicle/vehicle.module';
+import { AuthModule } from '../auth/auth.module';
+import { VehicleModule } from '../vehicle/vehicle.module';
 
 @Module({
   imports: [DatabaseModule, TypeORMDatabaseModule, AuthModule, VehicleModule],

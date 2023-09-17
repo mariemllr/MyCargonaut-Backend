@@ -2,7 +2,7 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import User from '../database/entities/user.entity';
 import { compare } from 'bcrypt';
-import { getEmailFromToken, hashUserPassword } from 'src/misc/helper';
+import { getEmailFromToken, hashUserPassword } from '../misc/helper';
 import { promises } from 'fs';
 import { FindOneOptions } from 'typeorm';
 
@@ -55,7 +55,7 @@ export class UserService {
   async deleteUser(email: string): Promise<boolean> {
     const user = await this.findOne(email);
     if (user === undefined || user === null) return false;
-    user.remove();
+    await user.remove();
     return true;
   }
 

@@ -14,11 +14,11 @@ export class CreateReviewDto {
 
   @IsOptional()
   @IsInt()
-  offerId: number;
+  offerId?: number;
 
   @IsOptional()
   @IsInt()
-  requestId: number;
+  requestId?: number;
 
   @IsNotEmpty()
   @IsInt()

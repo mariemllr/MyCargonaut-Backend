@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CreateReviewDto } from './dtos/CreateReview.dto';
-import { UserService } from 'src/user/user.service';
-import { getEmailFromCookie } from 'src/misc/helper';
-import Review from 'src/database/entities/review.entity';
-import User from 'src/database/entities/user.entity';
-import { OfferService } from 'src/offer/offer.service';
-import { RequestService } from 'src/request/request.service';
-import { Status } from 'src/misc/constants';
+import { UserService } from '../user/user.service';
+import { getEmailFromCookie } from '../misc/helper';
+import Review from '../database/entities/review.entity';
+import User from '../database/entities/user.entity';
+import { OfferService } from '../offer/offer.service';
+import { RequestService } from '../request/request.service';
+import { Status } from '../misc/constants';
 
 @Injectable()
 export class ReviewService {
@@ -34,14 +34,19 @@ export class ReviewService {
     let done;
     let isOffer;
     if (
-      createReviewData.offerId === undefined &&
-      createReviewData.requestId === undefined
+      (createReviewData.offerId === undefined ||
+        createReviewData.offerId === null) &&
+      (createReviewData.requestId === undefined ||
+        createReviewData.requestId === null)
     ) {
       throw new HttpException(
         'offerId or requestId is required',
         HttpStatus.PRECONDITION_FAILED,
       );
-    } else if (createReviewData.offerId === undefined) {
+    } else if (
+      createReviewData.offerId === undefined ||
+      createReviewData.offerId === null
+    ) {
       const request = this.requestService.getById(createReviewData.requestId);
       done = (await request).status === Status.statusDone;
       isOffer = false;
@@ -57,7 +62,7 @@ export class ReviewService {
       );
     }
     const user = await this.extractUser(cookie);
-    let visible;
+    let visible = false;
     let review;
     if (isOffer) {
       review = await Review.findOneBy({ offerId: createReviewData.offerId });
@@ -81,8 +86,9 @@ export class ReviewService {
     );
     if (visible) {
       review['visible'] = true;
+      await review.save();
     }
-    return newReview.save();
+    return await newReview.save();
   }
 
   async getReviewsByCookie(cookie: string): Promise<Review[]> {
