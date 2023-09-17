@@ -5,6 +5,9 @@ export default class Review extends BaseEntity {
   id: number;
 
   @Column()
+  isOffer: boolean;
+
+  @Column()
   userId_reviewer: number;
 
   @Column()
@@ -43,6 +46,7 @@ export default class Review extends BaseEntity {
     answer3: string,
   ) {
     const review = new Review();
+    review.isOffer = offerId !== null && offerId !== undefined;
     review.userId_reviewer = userId_reviewer;
     review.userId_reviewed = userId_reviewed;
     review.offerId = offerId;
@@ -52,7 +56,6 @@ export default class Review extends BaseEntity {
     review.answer1 = answer1;
     review.answer2 = answer2;
     review.answer3 = answer3;
-
     return review;
   }
 }
