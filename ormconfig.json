@@ -1,6 +1,6 @@
 {
   "type": "postgres",
-  "host": "mycargonaut-postgres.cvti62mnyeqb.eu-north-1.rds.amazonaws.com",
+  "host": "awseb-e-mqbqqy3yvu-stack-awsebrdsdatabase-m5a8ybysibtd.cvti62mnyeqb.eu-north-1.rds.amazonaws.com",
   "port": 5432,
   "username": "postgres",
   "password": "cargomaus69",
