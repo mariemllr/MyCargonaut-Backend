@@ -4,8 +4,8 @@ import { UserService } from '../user/user.service';
 import { getEmailFromCookie } from '../misc/helper';
 import { OfferService } from '../offer/offer.service';
 import { MsgType } from '../misc/constants';
-import Message from 'src/database/entities/message.entity';
-import Chat from 'src/database/entities/chat.entity';
+import Message from '../database/entities/message.entity';
+import Chat from '../database/entities/chat.entity';
 
 @Injectable()
 export class ChatService {
