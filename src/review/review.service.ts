@@ -3,7 +3,6 @@ import { CreateReviewDto } from './dtos/CreateReview.dto';
 import { UserService } from '../user/user.service';
 import { getEmailFromCookie } from '../misc/helper';
 import Review from '../database/entities/review.entity';
-import User from '../database/entities/user.entity';
 import { OfferService } from '../offer/offer.service';
 import { RequestService } from '../request/request.service';
 import { Status } from '../misc/constants';
