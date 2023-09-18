@@ -24,7 +24,7 @@ From within the project directory:
 
 `npm install`
 
-# Run PostgreSQL with Docker
+# Run PostgreSQL with Docker (deprecated)
 
 `docker run --name MyCargonaut-db -p 5432:5432 -e POSTGRES_PASSWORD=cargomaus69 -d postgres`
 
