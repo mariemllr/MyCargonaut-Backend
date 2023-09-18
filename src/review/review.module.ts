@@ -6,7 +6,6 @@ import {
   DatabaseModule,
   TypeORMDatabaseModule,
 } from '../database/database.module';
-import { OfferService } from '../offer/offer.service';
 import { OfferModule } from '../offer/offer.module';
 import { RequestModule } from '../request/request.module';
 

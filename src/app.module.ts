@@ -1,3 +1,4 @@
+import { ChatModule } from './chat/chat.module';
 import { Module } from '@nestjs/common';
 import {
   DatabaseModule,
@@ -18,6 +19,7 @@ import { ChatService } from './chat/chat.service';
 import { ChatController } from './chat/chat.controller';
 @Module({
   imports: [
+    ChatModule,
     OfferModule,
     VehicleModule,
     AuthModule,

@@ -35,7 +35,7 @@ export class ChatService {
     ) {
       isOffer = false;
     } else {
-      const offer = this.offerService.getById(createMessageData.offerId);
+      const offer = await this.offerService.getById(createMessageData.offerId);
       const offerFound = (await offer) != null || (await offer) != undefined;
       isOffer = true;
       if (!offerFound)
@@ -96,7 +96,6 @@ export class ChatService {
       where: { recieverId: userId },
     });
     const chats = chats1.concat(chats2);
-
     return chats;
   }
 
@@ -106,45 +105,58 @@ export class ChatService {
   }
 
   async getChatByUserId(userId: number): Promise<any> {
-    const chats = this.getAnyUserChats(userId);
+    const chats: Chat[] = await this.getAnyUserChats(userId);
     const userArr = [];
-    // im userArr sollten alle id's sein, außer die vom akutellen user
-    (await chats).forEach(function (chat) {
+
+    for (const chat of chats) {
       if (chat.userId != userId && !userArr.includes(chat.userId)) {
         userArr.push(chat.userId);
-      } else if (chat.userId != userId && !userArr.includes(chat.recieverId)) {
+      } else if (
+        chat.recieverId != userId &&
+        !userArr.includes(chat.recieverId)
+      ) {
         userArr.push(chat.recieverId);
       }
-    });
+    }
+
     let counter = 0;
     const chatStructList: any = [];
-    userArr.forEach(async function (uId) {
-      const chatStruct: any = {};
-      chatStruct.id = uId;
-      const user = await this.userService.findOneBy(uId);
-      chatStruct.name = user.name;
-      const messages1 = await Message.find({
-        where: { userId: uId, recieverId: userId },
-      });
-      const messages2 = await Message.find({
-        where: { recieverId: uId, userId: userId },
-      });
-      const messages = messages1.concat(messages2);
-      messages.sort((a, b) => a.id - b.id);
-      const messagesStructList: any = [];
-      messages.forEach(async function (message) {
-        const messagesStruct: any = {};
-        messagesStruct.id = message.id;
-        messagesStruct.text = message.text;
-        messagesStruct.sender = message.userId == userId;
-        messagesStruct.type = message.type;
-        messagesStruct.offerId = message.offerId;
-        messagesStructList.push(messagesStruct);
-      });
-      chatStruct.messages = messagesStructList;
-      counter++;
-      chatStructList.push(chatStruct);
-    });
+    userArr.sort((a, b) => a.id - b.id);
+
+    await Promise.all(
+      userArr.map(async (uId) => {
+        const chatStruct: any = {};
+        chatStruct.id = uId;
+        const user = await this.userService.findById(uId);
+        chatStruct.name = user.firstName + ' ' + user.lastName;
+        const messages1 = await Message.find({
+          where: { userId: uId, recieverId: userId },
+        });
+        const messages2 = await Message.find({
+          where: { recieverId: uId, userId: userId },
+        });
+        const messages = messages1.concat(messages2);
+        messages.sort((a, b) => a.id - b.id);
+        const messagesStructList: any = [];
+
+        await Promise.all(
+          messages.map(async (message) => {
+            const messagesStruct: any = {};
+            messagesStruct.id = message.id;
+            messagesStruct.text = message.text;
+            messagesStruct.sender = message.userId == userId;
+            messagesStruct.type = message.type;
+            messagesStruct.offerId = message.offerId;
+            messagesStructList.push(messagesStruct);
+          }),
+        );
+
+        chatStruct.messages = messagesStructList;
+        chatStructList.push(chatStruct);
+        counter++;
+        console.log(chatStructList);
+      }),
+    );
 
     return chatStructList;
   }
