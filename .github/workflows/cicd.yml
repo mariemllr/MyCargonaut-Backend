@@ -17,4 +17,5 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i private_key ${HOSTNAME} '
           cd MyCargonaut-Backend/ &&
           git pull origin main &&
+          source ~/.nvm/nvm.sh &&
           npm run pm2:deploy:app'
