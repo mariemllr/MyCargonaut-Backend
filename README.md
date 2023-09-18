@@ -27,6 +27,7 @@ From within the project directory:
 # Run PostgreSQL with Docker (deprecated)
 
 `docker run --name MyCargonaut-db -p 5432:5432 -e POSTGRES_PASSWORD=cargomaus69 -d postgres`
+Is now deployed globally. No action needed.
 
 # Start the NestJS Server
 
