@@ -14,6 +14,8 @@ import { VehicleService } from './vehicle/vehicle.service';
 import { ReviewController } from './review/review.controller';
 import { ReviewService } from './review/review.service';
 import { ReviewModule } from './review/review.module';
+import { PusherService } from './pusher/pusher.service';
+import { PusherController } from './pusher/pusher.controller';
 @Module({
   imports: [
     OfferModule,
@@ -27,7 +29,7 @@ import { ReviewModule } from './review/review.module';
     ReviewModule,
   ],
   exports: [AuthModule, DatabaseModule, UserModule],
-  providers: [OfferService, VehicleService, ReviewService],
-  controllers: [ReviewController],
+  providers: [OfferService, VehicleService, ReviewService, PusherService],
+  controllers: [ReviewController, PusherController],
 })
 export class AppModule {}
