@@ -8,7 +8,7 @@ import { USER_IMAGE_LOCATION } from './misc/constants';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
-    origin: 'https://mariemllr.github.io/',
+    origin: 'https://mariemllr.github.io',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
