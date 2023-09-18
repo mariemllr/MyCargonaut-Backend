@@ -26,3 +26,8 @@ export enum VehicleType {
   Anhaenger,
   Sonstiges,
 }
+
+export enum MsgType {
+  text,
+  offer,
+}
